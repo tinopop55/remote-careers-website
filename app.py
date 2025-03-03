@@ -33,7 +33,8 @@ import pdfplumber
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from services.ai.openai_client import analyze_cv
-from services.payments.stripe_client import create_checkout_session
+# Comment out the Stripe import since we don't need it yet
+# from services.payments.stripe_client import create_checkout_session
 from services.logging.error_logger import log_error  # Import the error logger
 from services.users.user_manager import register_user, record_cv_analysis, update_language_preference
 
@@ -460,8 +461,9 @@ def create_payment():
             logger.error("No email provided in payment request")
             return jsonify({"error": "Email address is required"}), 400
 
-        session_url = create_checkout_session(email)
-        logger.info(f"Payment session created for email: {email}")
+        # Since we're not using Stripe yet, return a placeholder URL
+        session_url = "https://buy.stripe.com/cN200t3Ac3ID23uaEF"  # placeholder Stripe URL
+        logger.info(f"Payment placeholder URL returned for email: {email}")
         return jsonify({"url": session_url})
 
     except Exception as e:
@@ -650,87 +652,4 @@ def create_email_template_en(report_data):
     """
 
 def create_email_template_ro(report_data):
-    """Create HTML email template in Romanian."""
-    return f"""
-    <html>
-    <body style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background-color: #2C3E50; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0;">
-            <h1 style="margin: 0;">Rezultatele Analizei CV-ului Tău</h1>
-        </div>
-        
-        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; border: 1px solid #ddd; border-top: none;">
-            <p>Salut,</p>
-            <p>Mulțumim că folosești serviciul nostru de analiză CV. Iată rezultatele tale:</p>
-            
-            <div style="background-color: #fff; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #ddd;">
-                <h2 style="color: #2C3E50; margin-top: 0; text-align: center;">Scor General: <span style="color: {get_score_color(report_data['scor_general'])}">{report_data['scor_general']}%</span></h2>
-                
-                <div style="display: flex; justify-content: space-between; margin: 20px 0; text-align: center;">
-                    <div style="flex: 1; padding: 10px; background-color: #f2f2f2; border-radius: 5px; margin: 0 5px;">
-                        <div style="font-size: 24px; font-weight: bold; color: #3498DB;">{report_data['scor_ats']}%</div>
-                        <div style="font-size: 14px; color: #7f8c8d;">Scor ATS</div>
-                    </div>
-                    <div style="flex: 1; padding: 10px; background-color: #f2f2f2; border-radius: 5px; margin: 0 5px;">
-                        <div style="font-size: 24px; font-weight: bold; color: #3498DB;">{report_data['industry_fitness']}%</div>
-                        <div style="font-size: 14px; color: #7f8c8d;">Potrivire cu Industria</div>
-                    </div>
-                    <div style="flex: 1; padding: 10px; background-color: #f2f2f2; border-radius: 5px; margin: 0 5px;">
-                        <div style="font-size: 24px; font-weight: bold; color: #3498DB;">{report_data['job_fit_score']}%</div>
-                        <div style="font-size: 14px; color: #7f8c8d;">Potrivire cu Job-ul</div>
-                    </div>
-                </div>
-                
-                <h3 style="color: #27AE60;">Puncte Forte:</h3>
-                <ul style="color: #333;">
-                    {''.join([f"<li>{point}</li>" for point in report_data['puncte_forte']])}
-                </ul>
-                
-                <h3 style="color: #E74C3C;">Puncte Slabe:</h3>
-                <ul style="color: #333;">
-                    {''.join([f"<li>{area}</li>" for area in report_data['puncte_slabe']])}
-                </ul>
-                
-                <h3 style="color: #F39C12;">Recomandări:</h3>
-                <ul style="color: #333;">
-                    {''.join([f"<li>{tip}</li>" for tip in report_data['recomandari']])}
-                </ul>
-                
-                <h3 style="color: #3498DB;">Zone de Focus:</h3>
-                <ul style="color: #333;">
-                    {''.join([f"<li>{area}</li>" for area in report_data['areas_to_focus_on_next']])}
-                </ul>
-            </div>
-            
-            <div style="background-color: #2C3E50; color: white; padding: 15px; border-radius: 5px; text-align: center; margin: 20px 0;">
-                <h3 style="margin-top: 0;">Pregătit să-ți duci cariera la următorul nivel?</h3>
-                <p>Obține un CV optimizat profesional și ieși în evidență printre ceilalți candidați!</p>
-                <a href="https://buy.stripe.com/cN200t3Ac3ID23uaEF" style="display: inline-block; background-color: #E74C3C; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px;">Îmbunătățește CV-ul Acum</a>
-            </div>
-            
-            <p>Dacă ai întrebări, nu ezita să răspunzi la acest email.</p>
-            <p>Cu stimă,<br>Echipa Remote Coaching Academy</p>
-        </div>
-        
-        <div style="text-align: center; padding: 20px; color: #7f8c8d; font-size: 12px;">
-            <p>© 2023 Remote Coaching Academy. Toate drepturile rezervate.</p>
-        </div>
-    </body>
-    </html>
-    """
-
-def get_score_color(score):
-    """Return color based on score value."""
-    if score >= 80:
-        return "#27AE60"  # Green
-    elif score >= 60:
-        return "#F39C12"  # Orange/Yellow
-    else:
-        return "#E74C3C"  # Red
-
-if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser(description='Run the Remote Coaching Academy application.')
-    parser.add_argument('--port', type=int, default=5000, help='Port to run the server on')
-    args = parser.parse_args()
-    
-    app.run(debug=True, port=args.port)
+    """Create HTML email template in Romanian

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}Remote Coaching Academy{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Transform your career with Remote Coaching Academy. Expert guidance for remote job seekers, CV optimization, and career coaching.{% endblock %}">
+    <meta name="keywords" content="remote work, career coaching, CV optimization, LinkedIn optimization, remote jobs, career development">
+    <meta name="author" content="Remote Coaching Academy">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="{% block og_title %}Remote Coaching Academy{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Transform your career with Remote Coaching Academy. Expert guidance for remote job seekers.{% endblock %}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.jpg', _external=True) }}">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.url }}">
+    <meta name="twitter:title" content="{% block twitter_title %}Remote Coaching Academy{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Transform your career with Remote Coaching Academy. Expert guidance for remote job seekers.{% endblock %}">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/og-image.jpg', _external=True) }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval';">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    
+    <!-- Page specific CSS -->
+    {% block additional_css %}{% endblock %}
+    
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #f72585;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --text-dark: #343a40;
+            --text-light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+        
+        .language-btn {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .language-btn:hover, .language-btn.active {
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .language-btn.active {
+            text-decoration: underline;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 3rem 0;
+        }
+        
+        .footer-heading {
+            color: #fff;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .footer-contact {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            background-color: rgba(0,0,0,0.2);
+            padding: 1rem 0;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                Remote Coaching Academy
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" id="nav-home">
+                            <span class="en">Home</span>
+                            <span class="ro">Acasă</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services" id="nav-services">
+                            <span class="en">Services</span>
+                            <span class="ro">Servicii</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="nav-tools" role="button" data-bs-toggle="dropdown">
+                            <span class="en">Tools</span>
+                            <span class="ro">Instrumente</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="/tools/cv-evaluator">
+                                    <span class="en">CV Evaluator</span>
+                                    <span class="ro">Evaluator CV</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" id="nav-about">
+                            <span class="en">About</span>
+                            <span class="ro">Despre noi</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="language-switcher">
+                    <button class="language-btn ro-btn active" onclick="switchLanguage('ro')">RO</button>
+                    <span class="text-light mx-1">|</span>
+                    <button class="language-btn en-btn" onclick="switchLanguage('en')">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="footer-heading">
+                        <span class="en">Remote Coaching Academy</span>
+                        <span class="ro">Remote Coaching Academy</span>
+                    </h5>
+                    <p class="footer-contact">
+                        <span class="en">Email: remotegururomania@gmail.com</span>
+                        <span class="ro">Email: remotegururomania@gmail.com</span>
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4 mb-md-0">
+                    <h5 class="footer-heading">
+                        <span class="en">Services</span>
+                        <span class="ro">Servicii</span>
+                    </h5>
+                    <div class="footer-links">
+                        <a href="/services/cv-optimization">
+                            <span class="en">CV Optimization</span>
+                            <span class="ro">Optimizare CV</span>
+                        </a>
+                        <a href="/services/linkedin-optimization">
+                            <span class="en">LinkedIn Optimization</span>
+                            <span class="ro">Optimizare LinkedIn</span>
+                        </a>
+                        <a href="/services/career-coaching">
+                            <span class="en">Career Coaching</span>
+                            <span class="ro">Coaching de Carieră</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4 mb-md-0">
+                    <h5 class="footer-heading">
+                        <span class="en">Tools</span>
+                        <span class="ro">Instrumente</span>
+                    </h5>
+                    <div class="footer-links">
+                        <a href="/tools/cv-evaluator">
+                            <span class="en">CV Evaluator</span>
+                            <span class="ro">Evaluator CV</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4 mb-md-0">
+                    <h5 class="footer-heading">
+                        <span class="en">Company</span>
+                        <span class="ro">Companie</span>
+                    </h5>
+                    <div class="footer-links">
+                        <a href="/about">
+                            <span class="en">About Us</span>
+                            <span class="ro">Despre Noi</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4 mb-md-0">
+                    <h5 class="footer-heading">
+                        <span class="en">Legal</span>
+                        <span class="ro">Legal</span>
+                    </h5>
+                    <div class="footer-links">
+                        <a href="#">
+                            <span class="en">Privacy Policy</span>
+                            <span class="ro">Politica de Confidențialitate</span>
+                        </a>
+                        <a href="#">
+                            <span class="en">Terms of Service</span>
+                            <span class="ro">Termeni și Condiții</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright mt-4">
+            <div class="container">
+                <span class="en">© 2023 Remote Coaching Academy. All rights reserved.</span>
+                <span class="ro">© 2023 Remote Coaching Academy. Toate drepturile rezervate.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Language switcher script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial language based on localStorage or default to Romanian
+            const savedLanguage = localStorage.getItem('preferredLanguage') || 'ro';
+            switchLanguage(savedLanguage);
+            
+            // Highlight the current page in the navigation
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPath || (currentPath.startsWith(href) && href !== '/')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        function switchLanguage(lang) {
+            // Store the preferred language
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Update language elements visibility
+            document.querySelectorAll('.en, .ro').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            document.querySelectorAll('.' + lang).forEach(el => {
+                el.style.display = 'inline';
+            });
+            
+            // Update active button
+            document.querySelector('.ro-btn').classList.toggle('active', lang === 'ro');
+            document.querySelector('.en-btn').classList.toggle('active', lang === 'en');
+            
+            // Update language input for forms
+            const langInputs = document.querySelectorAll('input[name="language"]');
+            langInputs.forEach(input => {
+                input.value = lang;
+            });
+            
+            // Set html lang attribute
+            document.documentElement.setAttribute('lang', lang);
+        }
+    </script>
+    
+    <!-- Page specific JS -->
+    {% block additional_js %}{% endblock %}
+</body>
+</html> 

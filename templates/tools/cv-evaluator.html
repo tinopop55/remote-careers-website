@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analiza CV - Crește-ți șansele de angajare!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #0F172A;
+            color: white;
+        }
+        .hero {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1551739440-5dd934d3a94a?q=80&w=1760&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .stat-card {
+            background-color: rgba(31, 41, 55, 0.7);
+            border-radius: 0.5rem;
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Navigation menu styles */
+        .top-nav {
+            background-color: #1f2937;
+            padding: 1rem;
+            width: 100%;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: white;
+        }
+        
+        /* Language switcher styles */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            margin-left: 1.5rem;
+        }
+        .language-btn {
+            padding: 5px 10px;
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .language-btn:hover {
+            opacity: 1;
+        }
+        .language-btn.active {
+            opacity: 1;
+            font-weight: bold;
+            border-width: 2px;
+        }
+        
+        /* Added styles for report display */
+        #result {
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        #result ul {
+            margin-top: 0.5rem;
+        }
+        
+        #result ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        #result h3, #result h4 {
+            margin-bottom: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">Remote Coaching Academy</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">
+                    <span class="en hidden">Home</span>
+                    <span class="ro">Acasă</span>
+                </a>
+                <a href="/services" class="nav-link">
+                    <span class="en hidden">Services</span>
+                    <span class="ro">Servicii</span>
+                </a>
+                <!-- Language Switcher -->
+                <div class="language-switcher">
+                    <button id="lang-ro" class="language-btn active" onclick="switchLanguage('ro')">RO</button>
+                    <span class="text-light mx-1">|</span>
+                    <button id="lang-en" class="language-btn" onclick="switchLanguage('en')">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero min-h-screen flex flex-col items-center justify-center px-4 py-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 text-center max-w-3xl" id="hero-title">Transformă-ți CV-ul într-un magnet pentru angajatori</h1>
+        <p class="text-xl text-gray-300 max-w-2xl text-center mb-10" id="hero-subtitle">Primește o analiză profesională și recomandări personalizate de la experți HR din companii Fortune 500.</p>
+
+        <!-- Stats Section -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 w-full max-w-4xl">
+            <div class="stat-card p-4 flex flex-col items-center">
+                <p class="text-blue-400 text-xl mb-1">95%</p>
+                <p class="text-sm text-gray-300" id="stat-success">Rată de succes</p>
+            </div>
+            <div class="stat-card p-4 flex flex-col items-center">
+                <p class="text-blue-400 text-xl mb-1">5000+</p>
+                <p class="text-sm text-gray-300" id="stat-cvs">CV-uri analizate</p>
+            </div>
+            <div class="stat-card p-4 flex flex-col items-center">
+                <p class="text-blue-400 text-xl mb-1">50+</p>
+                <p class="text-sm text-gray-300" id="stat-companies">Companii partenere</p>
+            </div>
+            <div class="stat-card p-4 flex flex-col items-center">
+                <p class="text-blue-400 text-xl mb-1">87%</p>
+                <p class="text-sm text-gray-300" id="stat-ats">Scor ATS mediu</p>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <a href="#evaluation-form" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105" id="cta-button">🚀 Începe Evaluarea Gratuită</a>
+    </section>
+        
+    <!-- BENEFITS -->
+    <section class="container mx-auto px-6 py-12 bg-white shadow-md rounded-lg">
+        <h2 class="text-2xl font-bold text-center text-blue-700">Ce primești instant pe email:</h2>
+        <ul class="mt-6 space-y-4 max-w-lg mx-auto text-gray-700">
+            <li class="flex items-start"><span class="text-blue-600 text-lg mr-2">✔</span> Analiză Expert: Evaluare de la recrutori seniori cu 15+ ani experiență</li>
+            <li class="flex items-start"><span class="text-blue-600 text-lg mr-2">✔</span> Scor ATS Detaliat: Evaluare a compatibilității CV-ului cu sistemele moderne</li>
+            <li class="flex items-start"><span class="text-blue-600 text-lg mr-2">✔</span> Recomandări Premium: Sfaturi practice pentru îmbunătățirea CV-ului</li>
+            <li class="flex items-start"><span class="text-blue-600 text-lg mr-2">✔</span> Industry Fit Score: Potrivirea CV-ului tău cu cerințele angajatorilor</li>
+        </ul>
+    </section>
+        
+    <!-- Evaluation Form Section -->
+    <div id="evaluation-form" class="bg-gray-900 py-16 px-4">
+        <div class="max-w-3xl mx-auto bg-gray-800 rounded-xl p-8 shadow-xl">
+            <h2 class="text-2xl font-bold mb-6 text-center" id="form-title">Analizează-ți CV-ul Gratuit</h2>
+            <p class="text-gray-300 mb-8 text-center" id="form-subtitle">Încarcă CV-ul tău în format PDF și primește o analiză detaliată în câteva minute.</p>
+            
+            <form id="cv-form" class="space-y-6">
+                <input type="hidden" id="language-input" name="language" value="ro">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2" id="email-label">Adresa de email</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="cv" class="block text-sm font-medium text-gray-300 mb-2" id="cv-label">CV în format PDF</label>
+                    <input type="file" id="cv" name="cv" accept=".pdf" required class="w-full px-4 py-2 rounded-md bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <button type="submit" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 rounded-md font-medium text-white transition duration-200" id="submit-button">Analizează CV-ul</button>
+                </div>
+                <div id="loading" class="hidden text-center">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+                    <p class="mt-2 text-gray-300" id="loading-text">Analizăm CV-ul tău...</p>
+                </div>
+                <div id="result" class="hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <section class="container mx-auto px-6 py-12 text-center">
+        <h2 class="text-2xl font-bold text-white">💬 Experiențele candidaților</h2>
+        <div class="mt-8 grid gap-8 md:grid-cols-3">
+            <div class="p-6 border rounded-lg shadow-lg">
+                <p class="text-yellow-500 text-lg">★★★★★</p>
+                <p class="mt-2">Am primit 3 oferte de muncă în prima săptămână după optimizarea CV-ului.</p>
+                <p class="text-gray-500 text-sm mt-2">🔹 Alexandru M. - Software Developer</p>
+            </div>
+            <div class="p-6 border rounded-lg shadow-lg">
+                <p class="text-yellow-500 text-lg">★★★★★</p>
+                <p class="mt-2">Scorul ATS m-a ajutat să înțeleg unde greșeam cu CV-ul.</p>
+                <p class="text-gray-500 text-sm mt-2">🔹 Maria D. - Project Manager</p>
+            </div>
+            <div class="p-6 border rounded-lg shadow-lg">
+                <p class="text-yellow-500 text-lg">★★★★★</p>
+                <p class="mt-2">Recomandările primite au făcut diferența. Serviciu de 5 stele!</p>
+                <p class="text-gray-500 text-sm mt-2">🔹 Cristian P. - Marketing Specialist</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript: Fix Scroll + Email Submission -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Scroll to email form when clicking "Începe Evaluarea Gratuită"
+            document.querySelector("a[href='#evaluation-form']").addEventListener("click", function(event) {
+                event.preventDefault();
+                document.getElementById("evaluation-form").scrollIntoView({ behavior: "smooth" });
+            });
+
+            // Handle email validation and redirection
+            document.getElementById("submit-email").addEventListener("click", function() {
+                const emailInput = document.getElementById("email");
+                const email = emailInput.value.trim();
+
+                // Validate email format
+                if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    alert("Te rog introdu o adresă de email validă.");
+                    return;
+                }
+
+                // Store email for tracking purposes
+                localStorage.setItem("userEmail", email);
+
+                // Redirect to index.html
+                window.location.href = "index.html";
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Language switcher functionality
+            const savedLang = localStorage.getItem('language') || 'ro';
+            switchLanguage(savedLang);
+            
+            // Form submission
+            const form = document.getElementById('cv-form');
+            const loadingIndicator = document.getElementById('loading');
+            const resultElement = document.getElementById('result');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const cvFile = document.getElementById('cv').files[0];
+                const language = document.getElementById('language-input').value;
+                
+                if (!email || !cvFile) {
+                    return;
+                }
+                
+                // Prepare form data
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('cv', cvFile);
+                formData.append('language', language);
+                
+                // Show loading
+                form.querySelectorAll('input, button').forEach(el => el.disabled = true);
+                loadingIndicator.classList.remove('hidden');
+                resultElement.classList.add('hidden');
+                
+                try {
+                    const response = await fetch('/analyze', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // Parse the summary to display in UI
+                        let analysisData;
+                        try {
+                            analysisData = JSON.parse(data.summary);
+                            
+                            // Create HTML for CV analysis report
+                            const langKey = language === 'ro' ? '_ro' : '_en';
+                            const scoreTitle = language === 'ro' ? 'Scor general' : 'Overall Score';
+                            const strengthsTitle = language === 'ro' ? 'Puncte forte' : 'Strengths';
+                            const weaknessesTitle = language === 'ro' ? 'Puncte slabe' : 'Weaknesses';
+                            const recommendationsTitle = language === 'ro' ? 'Recomandări' : 'Recommendations';
+                            const atsTitle = language === 'ro' ? 'Scor ATS' : 'ATS Score';
+                            const industryTitle = language === 'ro' ? 'Potrivire cu industria' : 'Industry Fitness';
+                            const jobFitTitle = language === 'ro' ? 'Potrivire cu job-ul' : 'Job Fit Score';
+                            const focusTitle = language === 'ro' ? 'Zone de focus' : 'Areas to Focus On';
+                            const emailInfo = language === 'ro' ? 'Un raport detaliat a fost trimis și pe email-ul tău.' : 'A detailed report has also been sent to your email.';
+                            
+                            let scoreClass = 'text-red-500';
+                            if (analysisData.scor_general > 70) {
+                                scoreClass = 'text-green-500';
+                            } else if (analysisData.scor_general > 50) {
+                                scoreClass = 'text-yellow-500';
+                            }
+                            
+                            const reportHTML = `
+                                <div class="bg-gray-800 rounded-lg p-6 mt-8 text-left">
+                                    <h3 class="text-xl font-bold mb-4 text-center text-white">${translations['report_title'+langKey]}</h3>
+                                    <p class="mb-4 text-gray-300 text-center">${emailInfo}</p>
+                                    
+                                    <div class="flex justify-center mb-6">
+                                        <div class="text-center">
+                                            <div class="text-4xl font-bold ${scoreClass}">${analysisData.scor_general}%</div>
+                                            <div class="text-sm text-gray-400">${scoreTitle}</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                        <div class="text-center p-3 bg-gray-700 rounded">
+                                            <div class="text-2xl font-bold text-blue-400">${analysisData.scor_ats}%</div>
+                                            <div class="text-sm text-gray-400">${atsTitle}</div>
+                                        </div>
+                                        <div class="text-center p-3 bg-gray-700 rounded">
+                                            <div class="text-2xl font-bold text-blue-400">${analysisData.industry_fitness}%</div>
+                                            <div class="text-sm text-gray-400">${industryTitle}</div>
+                                        </div>
+                                        <div class="text-center p-3 bg-gray-700 rounded">
+                                            <div class="text-2xl font-bold text-blue-400">${analysisData.job_fit_score}%</div>
+                                            <div class="text-sm text-gray-400">${jobFitTitle}</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h4 class="font-bold text-green-400 mb-2">${strengthsTitle}:</h4>
+                                        <ul class="list-disc pl-5 text-gray-300 space-y-1">
+                                            ${analysisData.puncte_forte.map(point => `<li>${point}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h4 class="font-bold text-red-400 mb-2">${weaknessesTitle}:</h4>
+                                        <ul class="list-disc pl-5 text-gray-300 space-y-1">
+                                            ${analysisData.puncte_slabe.map(point => `<li>${point}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h4 class="font-bold text-yellow-400 mb-2">${recommendationsTitle}:</h4>
+                                        <ul class="list-disc pl-5 text-gray-300 space-y-1">
+                                            ${analysisData.recomandari.map(point => `<li>${point}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <h4 class="font-bold text-blue-400 mb-2">${focusTitle}:</h4>
+                                        <ul class="list-disc pl-5 text-gray-300 space-y-1">
+                                            ${analysisData.areas_to_focus_on_next.map(point => `<li>${point}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="mt-8 text-center">
+                                        <a href="https://buy.stripe.com/cN200t3Ac3ID23uaEF" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg inline-block transition-colors">
+                                            ${translations['upgrade_button'+langKey]}
+                                        </a>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            resultElement.innerHTML = reportHTML;
+                        } catch (e) {
+                            // If there's an error parsing the JSON, show simple success message
+                            const langKey = language === 'ro' ? 'success_ro' : 'success_en';
+                            resultElement.innerHTML = `<div class="bg-green-800 p-4 rounded-md">
+                                <p>${translations[langKey]}</p>
+                            </div>`;
+                        }
+                    } else {
+                        const langKey = language === 'ro' ? 'error_ro' : 'error_en';
+                        resultElement.innerHTML = `<div class="bg-red-800 p-4 rounded-md">
+                            <p>${translations[langKey]}: ${data.error}</p>
+                        </div>`;
+                    }
+                } catch (error) {
+                    const langKey = language === 'ro' ? 'error_ro' : 'error_en';
+                    resultElement.innerHTML = `<div class="bg-red-800 p-4 rounded-md">
+                        <p>${translations[langKey]}: ${error.message}</p>
+                    </div>`;
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                    resultElement.classList.remove('hidden');
+                    form.querySelectorAll('input, button').forEach(el => el.disabled = false);
+                }
+            });
+        });
+        
+        // Translation data
+        const translations = {
+            // Romanian
+            hero_title_ro: 'Transformă-ți CV-ul într-un magnet pentru angajatori',
+            hero_subtitle_ro: 'Primește o analiză profesională și recomandări personalizate de la experți HR din companii Fortune 500.',
+            cta_button_ro: '🚀 Începe Evaluarea Gratuită',
+            stat_success_ro: 'Rată de succes',
+            stat_cvs_ro: 'CV-uri analizate',
+            stat_companies_ro: 'Companii partenere',
+            stat_ats_ro: 'Scor ATS mediu',
+            form_title_ro: 'Analizează-ți CV-ul Gratuit',
+            form_subtitle_ro: 'Încarcă CV-ul tău în format PDF și primește o analiză detaliată în câteva minute.',
+            email_label_ro: 'Adresa de email',
+            cv_label_ro: 'CV în format PDF',
+            submit_button_ro: 'Analizează CV-ul',
+            loading_text_ro: 'Analizăm CV-ul tău...',
+            success_ro: 'Analiza a fost trimisă cu succes! Verifică-ți email-ul pentru rezultate.',
+            error_ro: 'Eroare',
+            report_title_ro: 'Rezultatele Analizei CV-ului',
+            upgrade_button_ro: 'Îmbunătățește CV-ul Acum',
+            
+            // English
+            hero_title_en: 'Transform Your CV into an Employer Magnet',
+            hero_subtitle_en: 'Get a professional analysis and personalized recommendations from HR experts from Fortune 500 companies.',
+            cta_button_en: '🚀 Start Free Evaluation',
+            stat_success_en: 'Success Rate',
+            stat_cvs_en: 'CVs Analyzed',
+            stat_companies_en: 'Partner Companies',
+            stat_ats_en: 'Avg ATS Score',
+            form_title_en: 'Analyze Your CV for Free',
+            form_subtitle_en: 'Upload your CV in PDF format and receive a detailed analysis in minutes.',
+            email_label_en: 'Email Address',
+            cv_label_en: 'CV in PDF format',
+            submit_button_en: 'Analyze CV',
+            loading_text_en: 'Analyzing your CV...',
+            success_en: 'Analysis sent successfully! Check your email for results.',
+            error_en: 'Error',
+            report_title_en: 'CV Analysis Results',
+            upgrade_button_en: 'Improve Your CV Now'
+        };
+        
+        // Language switching function
+        function switchLanguage(lang) {
+            // Store language preference
+            localStorage.setItem('language', lang);
+            
+            // Update form language input
+            document.getElementById('language-input').value = lang;
+            
+            // Update button states
+            document.getElementById('lang-ro').classList.toggle('active', lang === 'ro');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            
+            // Update UI text based on language
+            document.getElementById('hero-title').textContent = translations[`hero_title_${lang}`];
+            document.getElementById('hero-subtitle').textContent = translations[`hero_subtitle_${lang}`];
+            document.getElementById('cta-button').textContent = translations[`cta_button_${lang}`];
+            document.getElementById('stat-success').textContent = translations[`stat_success_${lang}`];
+            document.getElementById('stat-cvs').textContent = translations[`stat_cvs_${lang}`];
+            document.getElementById('stat-companies').textContent = translations[`stat_companies_${lang}`];
+            document.getElementById('stat-ats').textContent = translations[`stat_ats_${lang}`];
+            document.getElementById('form-title').textContent = translations[`form_title_${lang}`];
+            document.getElementById('form-subtitle').textContent = translations[`form_subtitle_${lang}`];
+            document.getElementById('email-label').textContent = translations[`email_label_${lang}`];
+            document.getElementById('cv-label').textContent = translations[`cv_label_${lang}`];
+            document.getElementById('submit-button').textContent = translations[`submit_button_${lang}`];
+            document.getElementById('loading-text').textContent = translations[`loading_text_${lang}`];
+        }
+    </script>
+</body>
+</html> 

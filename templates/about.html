@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Remote Coaching Academy</title>
+  <!-- Tailwind CSS CDN (you can replace with your own compiled CSS) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <!-- Add Inter font for consistent branding with CV-Evaluator page -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Language toggling styles */
+    .ro {
+      display: none;
+    }
+    body.lang-ro .ro {
+      display: inline;
+    }
+    body.lang-ro .en {
+      display: none;
+    }
+    body.lang-en .en {
+      display: inline;
+    }
+    body.lang-en .ro {
+      display: none;
+    }
+    /* Style for the Remote Coaching Academy text to match CV-Evaluator page */
+    .brand-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+    }
+    /* Additional custom styles from the original about.html page */
+    .bg-gradient-dark-transparent {
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    }
+    /* Add any other necessary custom styles here */
+  </style>
+</head>
+<body class="lang-ro">
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 transition-all duration-300 bg-white/95 dark:bg-gray-900/95 shadow-md backdrop-blur-sm py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center">
+          <a href="/" class="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent brand-text">
+            Remote Coaching Academy
+          </a>
+        </div>
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="/" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <span class="en">Home</span>
+            <span class="ro">Acasa</span>
+          </a>
+          <a href="/services" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <span class="en">Services</span>
+            <span class="ro">Servicii</span>
+          </a>
+          <div class="relative group">
+            <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+              <span class="en">Tools</span>
+              <span class="ro">Instrumente</span>
+              <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+            <!-- Dropdown -->
+            <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white dark:bg-gray-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+              <a href="/tools/cv-evaluator" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <span class="en">CV Evaluator</span>
+                <span class="ro">Evaluator CV</span>
+              </a>
+            </div>
+          </div>
+          <a href="/about" class="text-blue-600 dark:text-blue-400 font-medium">
+            <span class="en">About</span>
+            <span class="ro">Despre noi</span>
+          </a>
+          <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" class="ml-4 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors flex items-center">
+            <span class="en">Book a Free Strategy Call</span>
+            <span class="ro">Programează Consultare</span>
+            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <!-- Language Selector -->
+          <div class="hidden md:flex items-center space-x-2 text-sm">
+            <a href="javascript:void(0)" onclick="setLanguage('ro')" class="font-medium text-blue-600 dark:text-blue-400">RO</a>
+            <span class="text-gray-400">|</span>
+            <a href="javascript:void(0)" onclick="setLanguage('en')" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">EN</a>
+          </div>
+          <!-- Dark Mode Toggle -->
+          <button
+            class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Toggle dark mode"
+          >
+            <!-- Simple sun/moon icon -->
+            <svg class="w-5 h-5 text-gray-700 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3v1m0 16v1m8.66-10.66l-.707.707M4.05 19.95l-.707.707M21 12h-1M4 12H3m16.95 4.95l-.707-.707M4.05 4.05l-.707-.707"/>
+            </svg>
+          </button>
+          <!-- Mobile Menu Button -->
+          <button class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200" id="mobile-menu-button">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu, show/hide based on menu state -->
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-4 pt-2 pb-3 space-y-1 border-t dark:border-gray-700">
+        <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+          Acasa
+        </a>
+        <a href="/services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+          Servicii
+        </a>
+        <a href="/tools/cv-evaluator" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+          Instrumente
+        </a>
+        <a href="/about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+          Despre noi
+        </a>
+        <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" class="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white">
+          Programează Consultare
+        </a>
+        <div class="mt-4 flex justify-center space-x-4">
+          <button onclick="setLanguage('ro')" class="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-gray-700 dark:text-gray-300">
+            RO
+          </button>
+          <button onclick="setLanguage('en')" class="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-gray-700 dark:text-gray-300">
+            EN
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="pt-24 dark:bg-gray-900 dark:text-white">
+    <!-- Hero Section -->
+    <section class="relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 dark:from-blue-900/30 dark:to-indigo-900/30"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <div class="text-center max-w-3xl mx-auto">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-white mb-6">
+            Despre Noi - <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent brand-text">Remote Coaching Academy</span>
+          </h1>
+          <div class="bg-blue-100 dark:bg-blue-900/50 p-5 rounded-xl shadow-md my-8 transform hover:scale-105 transition-transform">
+            <p class="text-blue-700 dark:text-blue-300 font-semibold text-xl flex items-center justify-center">
+              <svg class="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+              <span class="en">Empowering Professionals to Take Control of Their Careers</span>
+              <span class="ro">Împuternicim Profesioniștii să Preia Controlul Carierei Lor</span>
+            </p>
+          </div>
+          <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">
+            Transformăm cariere prin strategii dovedite, coaching personalizat și instrumente de ultimă generație.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/contact" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center">
+              <span class="en">Book A Free Consultation</span>
+              <span class="ro">Programează o Consultație Gratuită</span>
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="/services" class="px-8 py-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-full shadow-md hover:shadow-lg transition-all">
+              <span class="en">Discover Our Services</span>
+              <span class="ro">Descoperă Serviciile Noastre</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="text-center">
+            <p class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              500+
+            </p>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Profesioniști Ajutați</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              85%
+            </p>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Rată de Succes</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              3x
+            </p>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Creștere Salarială Medie</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              30-60
+            </p>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Zile până la Angajare</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="py-16 bg-white dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-8">
+        <div class="md:w-1/2">
+          <div class="rounded-3 overflow-hidden shadow-lg relative h-96" style="min-height: 400px;">
+            <img src="../static/images/aboutus.jpg" alt="Remote Coaching Academy - Career Transformation" class="w-full h-full object-cover" />
+            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-dark-transparent">
+              <p class="text-white mb-0">
+                <span class="en">Transforming careers worldwide</span>
+                <span class="ro">Transformăm cariere la nivel global</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2">
+          <p class="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+            <span class="en">
+              At Remote Coaching Academy, we don't just give career advice—we transform careers. Whether you're stuck in a low-paying job, struggling to land interviews, or looking to break into the global job market, we provide the exact strategies you need to get hired, increase your salary, and future-proof your career.
+            </span>
+            <span class="ro">
+              La Remote Coaching Academy, nu oferim doar sfaturi de carieră—transformăm cariere. Fie că ești blocat într-un job prost plătit, te lupți să capeți interviuri sau dorești să intri pe piața globală a muncii, îți oferim strategiile exacte de care ai nevoie pentru a fi angajat, a-ți crește salariul și a-ți asigura cariera pentru viitor.
+            </span>
+          </p>
+          <p class="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
+            <span class="en">
+              Our expertise goes beyond CV optimization and LinkedIn profiles—we equip professionals with the tools, coaching, and insider knowledge to secure high-paying jobs at international companies.
+            </span>
+            <span class="ro">
+              Expertiza noastră depășește optimizarea CV-ului și a profilurilor LinkedIn—echipăm profesioniștii cu instrumentele, coaching-ul și cunoștințele din interior pentru a atinge acele noi nivele în carierele profesionale.
+            </span>
+          </p>
+          <div class="grid md:grid-cols-3 gap-6 my-10">
+            <div class="flex items-start bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+              <svg class="w-6 h-6 text-green-600 dark:text-green-500 mr-3 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17.93l-5-5 1.414-1.414L11 14.101l7.586-7.586L20 8.93l-9 9z"/>
+              </svg>
+              <span class="text-gray-800 dark:text-gray-200">Ajutăm profesioniștii ambițioși să fie angajați—rapid.</span>
+            </div>
+            <div class="flex items-start bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+              <svg class="w-6 h-6 text-green-600 dark:text-green-500 mr-3 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17.93l-5-5 1.414-1.414L11 14.101l7.586-7.586L20 8.93l-9 9z"/>
+              </svg>
+              <span class="text-gray-800 dark:text-gray-200">Eliminăm ghicitul din procesul de căutare a unui loc de muncă.</span>
+            </div>
+            <div class="flex items-start bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+              <svg class="w-6 h-6 text-green-600 dark:text-green-500 mr-3 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17.93l-5-5 1.414-1.414L11 14.101l7.586-7.586L20 8.93l-9 9z"/>
+              </svg>
+              <span class="text-gray-800 dark:text-gray-200">Oferim strategii de carieră acționabile, orientate spre rezultate.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Founders Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 mr-3 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zM7 18H5v-7h2v7zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            Cunoaște Fondatorii: Flavia & Cătălin
+          </h2>
+          <div class="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="relative">
+            <div class="aspect-[4/3] relative rounded-2xl overflow-hidden shadow-xl">
+              <img src="../static/images/Catalin&Flavia.jpeg" alt="Fondatorii Remote Coaching Academy - Catalin & Flavia" class="object-cover w-full h-full">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+              <div class="absolute bottom-0 left-0 p-6 text-white">
+                <p class="text-sm font-medium">Experți în Cariere Remote</p>
+                <h3 class="text-2xl font-bold">Flavia & Cătălin</h3>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+              Suntem Flavia & Cătălin, experți în munca la distanță, strategiști de carieră și antreprenori dedicați să ajutăm profesioniști să scape de slujbele comune și să descopere oportunități cu venituri mari.
+            </p>
+            <p class="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
+              Cu ani de experiență în HR, vânzări și operațiuni, am ajutat sute de profesioniști să obțină locuri de muncă în companii internaționale de top. Am construit Remote Coaching Academy pentru a oferi o foaie de parcurs dovedită pentru succesul carierei.
+            </p>
+            <div class="bg-white dark:bg-gray-900 p-5 rounded-xl shadow-md border-l-4 border-blue-600 mb-8">
+              <p class="font-medium text-gray-800 dark:text-gray-200">
+                Am fost în locul tău—știm ce funcționează.
+              </p>
+            </div>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 dark:text-green-500 mr-3 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17.93l-5-5 1.414-1.414L11 14.101l7.586-7.586L20 8.93l-9 9z"/>
+                </svg>
+                <span class="text-gray-800 dark:text-gray-200">Am stăpânit strategiile de căutare a joburilor remote cu mult înainte de a deveni populare.</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 dark:text-green-500 mr-3 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17.93l-5-5 1.414-1.414L11 14.101l7.586-7.586L20 8.93l-9 9z"/>
+                </svg>
+                <span class="text-gray-800 dark:text-gray-200">Eliminăm ghicitul din procesul de căutare a unui loc de muncă.</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 dark:text-green-500 mr-3 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17.93l-5-5 1.414-1.414L11 14.101l7.586-7.586L20 8.93l-9 9z"/>
+                </svg>
+                <span class="text-gray-800 dark:text-gray-200">Oferim strategii de carieră acționabile, orientate spre rezultate.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Pregătit să-ți Transformi Cariera?</h2>
+        <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+          Nu te pregătim doar pentru joburi. Te pregătim pentru transformarea carierei.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white text-blue-600 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 font-bold">
+            Programează o Consultare Gratuită
+          </a>
+          <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white text-blue-600 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 font-bold">
+            Programează o Consultare Gratuită
+          </a>
+          <a href="/services" class="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full hover:bg-white/10 transition-colors">
+            Descoperă Serviciile Noastre
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-20 bg-white dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">
+              Hai să Discutăm Despre Viitorul Carierei Tale
+            </h2>
+            <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">
+              Completează formularul și unul dintre experții noștri te va contacta în 24 de ore pentru a discuta despre obiectivele tale de carieră.
+            </p>
+            <div class="space-y-4 mb-8">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-2 12H6V8h12v8z"/>
+                </svg>
+                <span class="text-gray-700 dark:text-gray-300">remotegururomania@gmail.com</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 14H7V7h10v10z"/>
+                </svg>
+                <span class="text-gray-700 dark:text-gray-300">Program: Luni-Vineri, 9:00 - 18:00</span>
+              </div>
+            </div>
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-5 rounded-lg">
+              <p class="text-gray-700 dark:text-gray-300 italic">
+                "Investiția în cariera ta este cea mai bună investiție pe care o poți face vreodată."
+              </p>
+            </div>
+          </div>
+          <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+            <form id="contact-form" action="/send-contact" method="post" class="space-y-6">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nume</label>
+                  <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all" placeholder="Numele tău" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                  <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all" placeholder="email@exemplu.com" />
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Domeniul tău profesional</label>
+                <select name="field" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all">
+                  <option value="">Selectează domeniul</option>
+                  <option value="tech">Tehnologie & IT</option>
+                  <option value="marketing">Marketing & Vânzări</option>
+                  <option value="operations">Operațiuni & Logistică</option>
+                  <option value="hr">HR & Recrutare</option>
+                  <option value="finance">Finanțe & Contabilitate</option>
+                  <option value="other">Altul</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mesajul tău</label>
+                <textarea name="message" required rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all" placeholder="Spune-ne despre obiectivele tale de carieră..."></textarea>
+              </div>
+              <input type="hidden" name="language" id="language-input" value="ro">
+              <button type="submit" class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md hover:shadow-lg transition-all font-medium">
+                Trimite Mesajul
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-5 gap-8">
+        <div class="md:col-span-1">
+          <h3 class="text-xl font-bold mb-4 brand-text">Remote Coaching Academy</h3>
+          <p class="text-gray-400 mb-4">
+            <span class="en">Transforming careers through proven strategies and personalized coaching.</span>
+            <span class="ro">Transformăm cariere prin strategii dovedite și coaching personalizat.</span>
+          </p>
+          <p class="text-gray-400 mb-4">
+            <span class="en">Email: remotegururomania@gmail.com</span>
+            <span class="ro">Email: remotegururomania@gmail.com</span>
+          </p>
+          <div class="flex space-x-4 mb-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <span class="sr-only">Facebook</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <span class="sr-only">Instagram</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.353-.3-.882-.344-1.857-.047-1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <span class="sr-only">LinkedIn</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <span class="sr-only">YouTube</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="md:col-span-1">
+          <h3 class="text-lg font-semibold mb-4">
+            <span class="en">Services</span>
+            <span class="ro">Servicii</span>
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="/services/cv-optimization" class="text-gray-400 hover:text-white transition-colors">
+                <span class="en">CV Optimization</span>
+                <span class="ro">Optimizare CV</span>
+              </a>
+            </li>
+            <li>
+              <a href="/services/linkedin-optimization" class="text-gray-400 hover:text-white transition-colors">
+                <span class="en">LinkedIn Optimization</span>
+                <span class="ro">Optimizare LinkedIn</span>
+              </a>
+            </li>
+            <li>
+              <a href="/services/career-coaching" class="text-gray-400 hover:text-white transition-colors">
+                <span class="en">Career Coaching</span>
+                <span class="ro">Coaching de Carieră</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="md:col-span-1">
+          <h3 class="text-lg font-semibold mb-4">
+            <span class="en">Tools</span>
+            <span class="ro">Instrumente</span>
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="/tools/cv-evaluator" class="text-gray-400 hover:text-white transition-colors">
+                <span class="en">CV Evaluator</span>
+                <span class="ro">Evaluator CV</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="md:col-span-1">
+          <h3 class="text-lg font-semibold mb-4">
+            <span class="en">Company</span>
+            <span class="ro">Companie</span>
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="/about" class="text-gray-400 hover:text-white transition-colors">
+                <span class="en">About Us</span>
+                <span class="ro">Despre Noi</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="md:col-span-1">
+          <h3 class="text-lg font-semibold mb-4">
+            <span class="en">Legal</span>
+            <span class="ro">Legal</span>
+          </h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="en">Privacy Policy</span>
+                <span class="ro">Politica de Confidențialitate</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                <span class="en">Terms of Service</span>
+                <span class="ro">Termeni și Condiții</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400">
+          <span class="en">© 2023 Remote Coaching Academy. All rights reserved.</span>
+          <span class="ro">© 2023 Remote Coaching Academy. Toate drepturile rezervate.</span>
+        </p>
+        <div class="mt-4 md:mt-0 flex items-center space-x-2 text-sm">
+          <button onclick="setLanguage('ro')" class="px-3 py-1 bg-gray-800 text-gray-400 rounded hover:text-white transition-colors">RO</button>
+          <span class="text-gray-600">|</span>
+          <button onclick="setLanguage('en')" class="px-3 py-1 bg-gray-800 text-gray-400 rounded hover:text-white transition-colors">EN</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function() {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+      
+      // Highlight current page in navigation
+      const currentPath = window.location.pathname;
+      const navLinks = document.querySelectorAll('nav a');
+      
+      navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath) {
+          link.classList.add('font-medium');
+          link.classList.add('text-blue-600');
+          link.classList.add('dark:text-blue-400');
+        }
+      });
+      
+      // Check language preference from localStorage
+      const savedLang = localStorage.getItem('preferredLanguage') || 'ro';
+      document.body.classList.add(`lang-${savedLang}`);
+      
+      // Update the language toggle buttons to reflect current language
+      updateLanguageButtons(savedLang);
+
+      // Handle contact form submission
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Update the language input value based on active language
+          const languageInput = document.getElementById('language-input');
+          const savedLanguage = localStorage.getItem('preferredLanguage') || 'ro';
+          languageInput.value = savedLanguage;
+          
+          // Get form data
+          const formData = new FormData(contactForm);
+          
+          // Disable form elements during submission
+          const submitButton = contactForm.querySelector('button[type="submit"]');
+          const formElements = contactForm.querySelectorAll('input, textarea, select, button');
+          formElements.forEach(el => el.disabled = true);
+          
+          // Change button text to indicate loading
+          const originalButtonText = submitButton.textContent;
+          submitButton.textContent = savedLanguage === 'ro' ? 'Se trimite...' : 'Sending...';
+          
+          // Send form data via AJAX
+          fetch('/send-contact', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            // Create alert message
+            const alertDiv = document.createElement('div');
+            alertDiv.className = data.success ? 
+              'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4' : 
+              'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4';
+            alertDiv.textContent = data.message;
+            
+            // Insert alert before the form
+            contactForm.parentNode.insertBefore(alertDiv, contactForm);
+            
+            // Reset form if successful
+            if (data.success) {
+              contactForm.reset();
+            }
+            
+            // Auto dismiss alert after 5 seconds
+            setTimeout(() => {
+              alertDiv.remove();
+            }, 5000);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Create error alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4';
+            alertDiv.textContent = savedLanguage === 'ro' ? 
+              'A apărut o eroare. Te rugăm să încerci din nou.' : 
+              'An error occurred. Please try again.';
+            
+            // Insert alert before the form
+            contactForm.parentNode.insertBefore(alertDiv, contactForm);
+            
+            // Auto dismiss alert after 5 seconds
+            setTimeout(() => {
+              alertDiv.remove();
+            }, 5000);
+          })
+          .finally(() => {
+            // Re-enable form elements
+            formElements.forEach(el => el.disabled = false);
+            // Restore button text
+            submitButton.textContent = originalButtonText;
+          });
+        });
+      }
+    });
+    
+    // Function to set language
+    function setLanguage(lang) {
+      // Remove existing language classes
+      document.body.classList.remove('lang-ro', 'lang-en');
+      
+      // Add the selected language class
+      document.body.classList.add(`lang-${lang}`);
+      
+      // Save preference to localStorage (use same key as main.js)
+      localStorage.setItem('preferredLanguage', lang);
+      
+      // Update UI to reflect language change
+      updateLanguageButtons(lang);
+    }
+    
+    // Function to update language buttons UI
+    function updateLanguageButtons(activeLang) {
+      const roButton = document.querySelector('a[onclick="setLanguage(\'ro\')"]');
+      const enButton = document.querySelector('a[onclick="setLanguage(\'en\')"]');
+      
+      if (roButton && enButton) {
+        if (activeLang === 'ro') {
+          roButton.classList.add('font-medium', 'text-blue-600', 'dark:text-blue-400');
+          enButton.classList.remove('font-medium', 'text-blue-600', 'dark:text-blue-400');
+          enButton.classList.add('text-gray-600', 'dark:text-gray-400');
+        } else {
+          enButton.classList.add('font-medium', 'text-blue-600', 'dark:text-blue-400');
+          roButton.classList.remove('font-medium', 'text-blue-600', 'dark:text-blue-400');
+          roButton.classList.add('text-gray-600', 'dark:text-gray-400');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

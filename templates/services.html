@@ -1,0 +1,515 @@
+{% extends "base.html" %}
+
+{% block title %}Remote Careers{% endblock %}
+
+{% block additional_css %}
+<style>
+    .service-card {
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15), 0 5px 15px -10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.05);
+        background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    }
+    
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.2), 0 15px 20px -10px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(to bottom, #ffffff, #f0f2f5);
+    }
+    
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .service-card:hover::before {
+        opacity: 1;
+    }
+    
+    .service-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 10px 15px -3px rgba(var(--primary-color-rgb), 0.5);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .service-icon::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        opacity: 0.3;
+        filter: blur(8px);
+        z-index: -1;
+    }
+    
+    .service-title {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .service-description {
+        flex-grow: 1;
+        color: #495057;
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+    
+    .service-card .btn {
+        transition: all 0.3s ease;
+        font-weight: 500;
+        border-width: 2px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .service-card .btn-outline-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 10px -3px rgba(var(--primary-color-rgb), 0.3);
+    }
+    
+    .banner-section {
+        background: linear-gradient(145deg, #4361ee, #3a0ca3);
+        color: white;
+        padding: 3.5rem 0;
+        margin: 5rem 0;
+        border-radius: 1rem;
+        box-shadow: 0 20px 40px -10px rgba(67, 97, 238, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .banner-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        opacity: 0.5;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.25rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: translateX(5px);
+    }
+    
+    .feature-icon {
+        color: rgba(255, 255, 255, 0.9);
+        margin-right: 1rem;
+        font-size: 1.5rem;
+    }
+    
+    /* Additional styles for the services section */
+    .services-section {
+        position: relative;
+        padding: 5rem 0;
+        background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+    }
+    
+    .services-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    .services-heading {
+        margin-bottom: 3rem;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .services-heading::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        border-radius: 2px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    <span class="en">Unlock Your Remote Career Potential</span>
+                    <span class="ro">Deblochează-ți Potențialul unei Cariere Remote</span>
+                </h1>
+                <p class="lead">
+                    <span class="en">We offer a complete suite of career services designed specifically for professionals seeking remote opportunities.</span>
+                    <span class="ro">Oferim o suită completă de servicii de carieră concepute special pentru profesioniștii care caută oportunități de muncă la distanță.</span>
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ url_for('static', filename='images/servicii.jpg') }}" alt="Remote Work Services" class="img-fluid rounded-3 shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Services Section -->
+<section class="py-5 services-section">
+    <div class="container">
+        <h2 class="text-center services-heading mb-5 display-5 fw-bold">
+            <span class="en">Our Core Services</span>
+            <span class="ro">Serviciile Noastre de Bază</span>
+        </h2>
+        
+        <div class="row g-4">
+            <!-- CV Optimization -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card p-4">
+                    <div class="service-icon">
+                        <i class="fas fa-file-lines fa-lg"></i>
+                    </div>
+                    <h3 class="service-title h4">
+                        <span class="en">CV Optimization</span>
+                        <span class="ro">Optimizare CV</span>
+                    </h3>
+                    <div class="service-description mb-4">
+                        <p>
+                            <span class="en">Enhance your CV to stand out to employers and pass ATS screenings with expert-crafted content tailored for remote roles.</span>
+                            <span class="ro">Îmbunătățește-ți CV-ul pentru a ieși în evidență în fața angajatorilor și a trece de filtrele ATS cu conținut creat de experți, adaptat pentru roluri remote.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LinkedIn Optimization -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card p-4">
+                    <div class="service-icon">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </div>
+                    <h3 class="service-title h4">
+                        <span class="en">LinkedIn Optimization</span>
+                        <span class="ro">Optimizare LinkedIn</span>
+                    </h3>
+                    <div class="service-description mb-4">
+                        <p>
+                            <span class="en">Transform your LinkedIn profile into a recruiter magnet with our proven strategy to highlight your remote work skills and attract opportunities.</span>
+                            <span class="ro">Transformă-ți profilul LinkedIn într-un magnet pentru recrutori cu strategia noastră dovedită pentru a evidenția abilitățile tale de lucru la distanță și a atrage oportunități.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Career Coaching -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card p-4">
+                    <div class="service-icon">
+                        <i class="fas fa-compass fa-lg"></i>
+                    </div>
+                    <h3 class="service-title h4">
+                        <span class="en">Career Coaching</span>
+                        <span class="ro">Coaching de Carieră</span>
+                    </h3>
+                    <div class="service-description mb-4">
+                        <p>
+                            <span class="en">Receive personalized coaching to advance your remote career, overcome obstacles, and achieve your professional goals.</span>
+                            <span class="ro">Primește coaching personalizat pentru a-ți avansa cariera remote, a depăși obstacolele și a-ți atinge obiectivele profesionale.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Interview Preparation -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card p-4">
+                    <div class="service-icon">
+                        <i class="fas fa-comments fa-lg"></i>
+                    </div>
+                    <h3 class="service-title h4">
+                        <span class="en">Interview Preparation</span>
+                        <span class="ro">Pregătire pentru Interviu</span>
+                    </h3>
+                    <div class="service-description mb-4">
+                        <p>
+                            <span class="en">Master the art of remote interviews with personalized preparation, mock interviews, and feedback from industry experts.</span>
+                            <span class="ro">Stăpânește arta interviurilor la distanță cu pregătire personalizată, simulări de interviuri și feedback de la experți din industrie.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Salary Negotiation -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card p-4">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line fa-lg"></i>
+                    </div>
+                    <h3 class="service-title h4">
+                        <span class="en">Salary Negotiation</span>
+                        <span class="ro">Negociere Salarială</span>
+                    </h3>
+                    <div class="service-description mb-4">
+                        <p>
+                            <span class="en">Learn effective salary negotiation strategies specific to remote roles to maximize your compensation package.</span>
+                            <span class="ro">Învață strategii eficiente de negociere salarială specifice rolurilor remote pentru a-ți maximiza pachetul de compensare.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- The Remote Job System -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card p-4 border-primary border-2" style="background: linear-gradient(to bottom, #fff, #f0f7ff);">
+                    <div class="service-icon" style="background: linear-gradient(135deg, #f72585, #b5179e);">
+                        <i class="fas fa-bolt fa-lg"></i>
+                    </div>
+                    <h3 class="service-title h4" style="color: #f72585;">
+                        <span class="en">The Remote Job System</span>
+                        <span class="ro">Sistemul de Job Remote</span>
+                    </h3>
+                    <div class="service-description mb-4">
+                        <p>
+                            <span class="en">Our flagship 40-day career accelerator program designed to get you hired remotely with a proven system and guaranteed results.</span>
+                            <span class="ro">Programul nostru accelerator de carieră de 40 de zile, conceput pentru a te ajuta să fii angajat remote cu un sistem dovedit și rezultate garantate.</span>
+                        </p>
+                    </div>
+                    <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" target="_blank" class="btn btn-primary">
+                        <span class="en">Book Your Free Consultation</span>
+                        <span class="ro">Programează Consultația Gratuită</span>
+                        <i class="fas fa-calendar-check ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Accelerator Banner Section -->
+<section class="banner-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h2 class="mb-4">
+                    <span class="en">The Remote Job System: Get Hired in 40 Days</span>
+                    <span class="ro">Sistemul de Job Remote: Angajează-te în 40 de Zile</span>
+                </h2>
+                <p class="lead mb-4">
+                    <span class="en">A comprehensive career acceleration program designed specifically for professionals seeking remote opportunities.</span>
+                    <span class="ro">Un program complet de accelerare a carierei conceput specific pentru profesioniștii care caută oportunități de muncă remote.</span>
+                </p>
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <span class="en">95% Success Rate</span>
+                                <span class="ro">Rată de Succes de 95%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <span class="en">40-Day Interview Guarantee</span>
+                                <span class="ro">Garanție de Interviu în 40 de Zile</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <span class="en">Personalized Coaching</span>
+                                <span class="ro">Coaching Personalizat</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <span class="en">AI-Powered Tools</span>
+                                <span class="ro">Instrumente Bazate pe AI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/services/accelerator" class="btn btn-light">
+                    <span class="en">Learn More About The System</span>
+                    <span class="ro">Află Mai Multe Despre Sistem</span>
+                    <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+            <div class="col-lg-5">
+                <div class="text-center">
+                    <div class="bg-white text-dark p-4 rounded-lg shadow-lg">
+                        <div class="display-4 fw-bold text-primary mb-2">40</div>
+                        <p class="lead mb-0">
+                            <span class="en">Days to Your First Interview</span>
+                            <span class="ro">Zile până la Primul Tău Interviu</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">
+            <span class="en">What Our Clients Say</span>
+            <span class="ro">Ce Spun Clienții Noștri</span>
+        </h2>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text">
+                            <span class="en">"I landed a remote position at a top tech company within 35 days of starting the program. The personalized coaching and LinkedIn optimization were game-changers!"</span>
+                            <span class="ro">"Am obținut o poziție remote la o companie de top în tehnologie în 35 de zile de la începerea programului. Coaching-ul personalizat și optimizarea LinkedIn au fost decisive!"</span>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <small class="text-muted">
+                            <span class="en">Maria D. - Software Developer</span>
+                            <span class="ro">Maria D. - Developer Software</span>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text">
+                            <span class="en">"After months of applying with no responses, I followed the Remote Job System and received 3 interview requests in the first week! Now working fully remote with a 40% salary increase."</span>
+                            <span class="ro">"După luni de aplicări fără răspunsuri, am urmat Sistemul de Job Remote și am primit 3 cereri de interviu în prima săptămână! Acum lucrez complet remote cu o creștere salarială de 40%."</span>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <small class="text-muted">
+                            <span class="en">Alexandru P. - Project Manager</span>
+                            <span class="ro">Alexandru P. - Manager de Proiect</span>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text">
+                            <span class="en">"The CV optimization service transformed my resume completely. I'm now getting callbacks from companies I previously couldn't reach. Worth every penny!"</span>
+                            <span class="ro">"Serviciul de optimizare CV mi-a transformat complet CV-ul. Acum primesc răspunsuri de la companii la care anterior nu puteam ajunge. Merită fiecare bănuț!"</span>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <small class="text-muted">
+                            <span class="en">Elena M. - Digital Marketer</span>
+                            <span class="ro">Elena M. - Specialist Marketing Digital</span>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-4">
+                    <span class="en">Ready to Transform Your Career?</span>
+                    <span class="ro">Pregătit să-ți Transformi Cariera?</span>
+                </h2>
+                <p class="lead mb-5">
+                    <span class="en">Schedule a free consultation call with our career experts to discuss how we can help you achieve your remote career goals.</span>
+                    <span class="ro">Programează un apel de consultanță gratuit cu experții noștri în carieră pentru a discuta cum te putem ajuta să-ți atingi obiectivele de carieră remote.</span>
+                </p>
+                <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" target="_blank" class="btn btn-primary btn-lg">
+                    <span class="en">Book Your Free Consultation</span>
+                    <span class="ro">Programează Consultația Gratuită</span>
+                    <i class="fas fa-calendar-check ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

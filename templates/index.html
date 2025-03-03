@@ -1,0 +1,458 @@
+{% extends "base.html" %}
+
+{% block title %}Remote Coaching Academy - Coaching pentru cariera ta profesională{% endblock %}
+
+{% block additional_css %}
+<style>
+    /* Homepage-specific styles */
+    .hero {
+        background-image: url('{{ url_for('static', filename='images/hero-bg.jpg') }}');
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+    }
+    
+    .stats-section {
+        padding: 3rem 0;
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 1.5rem 1rem;
+    }
+    
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-text {
+        font-size: 1.25rem;
+    }
+    
+    .service-section .row,
+    .tools-section .row,
+    .testimonial-section .row {
+        margin-top: 3rem;
+    }
+    
+    .service-icon,
+    .tool-icon {
+        font-size: 3rem;
+        height: 100px;
+        width: 100px;
+        line-height: 100px;
+        text-align: center;
+        background-color: rgba(67, 97, 238, 0.1);
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        color: var(--primary-color);
+    }
+    
+    .testimonial-section {
+        background-color: var(--light-bg);
+    }
+    
+    .testimonial-card {
+        background-color: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .testimonial-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        object-fit: cover;
+    }
+    
+    .testimonial-text {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+    
+    .testimonial-author {
+        font-weight: 700;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 hero-content animate-left">
+                <h1>
+                    <span class="en">Accelerate Your Career with Expert Coaching</span>
+                    <span class="ro">Accelerează-ți Cariera cu Coaching Expert</span>
+                </h1>
+                <p>
+                    <span class="en">We help professionals maximize their potential, secure better job opportunities, and increase their income through personalized career coaching, CV optimization, and proven strategies.</span>
+                    <span class="ro">Ajutăm profesioniștii să-și maximizeze potențialul, să obțină oportunități de muncă mai bune și să-și crească veniturile prin coaching personalizat, optimizare CV și strategii dovedite.</span>
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/services" class="btn btn-primary btn-lg">
+                        <span class="en">Our Services</span>
+                        <span class="ro">Serviciile Noastre</span>
+                    </a>
+                    <a href="/tools/cv-analyzer" class="btn btn-outline-light btn-lg">
+                        <span class="en">Free CV Analysis</span>
+                        <span class="ro">Analiză CV Gratuită</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <div class="stat-item animate-up">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-text">
+                        <span class="en">Clients</span>
+                        <span class="ro">Clienți</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item animate-up">
+                    <div class="stat-number">90%</div>
+                    <div class="stat-text">
+                        <span class="en">Success Rate</span>
+                        <span class="ro">Rată de Succes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item animate-up">
+                    <div class="stat-number">35%</div>
+                    <div class="stat-text">
+                        <span class="en">Avg. Salary Increase</span>
+                        <span class="ro">Creștere Salarială Medie</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item animate-up">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-text">
+                        <span class="en">Years Experience</span>
+                        <span class="ro">Ani Experiență</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who We Help Section -->
+<section class="who-we-help-section">
+    <div class="container">
+        <div class="section-title animate-up">
+            <h2>
+                <span class="en">Who We Help</span>
+                <span class="ro">Pe Cine Ajutăm</span>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feature-box animate-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>
+                        <span class="en">Recent Graduates</span>
+                        <span class="ro">Absolvenți Recenți</span>
+                    </h3>
+                    <p>
+                        <span class="en">Starting your career journey can be challenging. We help you stand out with a professional CV and job application strategy that showcases your potential.</span>
+                        <span class="ro">Începerea carierei poate fi o provocare. Te ajutăm să te diferențiezi cu un CV profesional și o strategie de aplicare care îți evidențiază potențialul.</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-box animate-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>
+                        <span class="en">Mid-Career Professionals</span>
+                        <span class="ro">Profesioniști la Mijlocul Carierei</span>
+                    </h3>
+                    <p>
+                        <span class="en">Ready for the next step? We'll help you leverage your experience to secure better opportunities, higher salary, and more fulfilling roles in your industry.</span>
+                        <span class="ro">Pregătit pentru următorul pas? Te ajutăm să-ți valorifici experiența pentru a obține oportunități mai bune, salarii mai mari și roluri mai împlinite în industria ta.</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-box animate-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>
+                        <span class="en">Career Changers</span>
+                        <span class="ro">Persoane în Schimbare de Carieră</span>
+                    </h3>
+                    <p>
+                        <span class="en">Looking to pivot to a new industry? We'll guide you through repositioning your skills and experience to successfully transition to your desired field.</span>
+                        <span class="ro">Dorești să te reorientezi către o nouă industrie? Te ghidăm în repoziționarea abilităților și experienței tale pentru a face cu succes tranziția către domeniul dorit.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="service-section bg-light">
+    <div class="container">
+        <div class="section-title animate-up">
+            <h2>
+                <span class="en">Our Services</span>
+                <span class="ro">Serviciile Noastre</span>
+            </h2>
+            <p>
+                <span class="en">We offer a range of services designed to accelerate your career growth and help you achieve your professional goals.</span>
+                <span class="ro">Oferim o gamă de servicii concepute pentru a accelera creșterea carierei tale și pentru a te ajuta să-ți atingi obiectivele profesionale.</span>
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-up">
+                    <div class="service-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="service-title">
+                        <span class="en">CV Optimization</span>
+                        <span class="ro">Optimizare CV</span>
+                    </h3>
+                    <p>
+                        <span class="en">Stand out from the competition with a professionally crafted CV that highlights your strengths and achievements.</span>
+                        <span class="ro">Evidențiază-te față de competiție cu un CV profesional care îți pune în valoare punctele forte și realizările.</span>
+                    </p>
+                    <a href="/services/cv-optimization" class="btn btn-outline-primary mt-3">
+                        <span class="en">Learn More</span>
+                        <span class="ro">Află Mai Multe</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-up">
+                    <div class="service-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3 class="service-title">
+                        <span class="en">LinkedIn Optimization</span>
+                        <span class="ro">Optimizare LinkedIn</span>
+                    </h3>
+                    <p>
+                        <span class="en">Transform your LinkedIn profile into a powerful personal branding tool that attracts recruiters and opportunities.</span>
+                        <span class="ro">Transformă-ți profilul LinkedIn într-un instrument puternic de branding personal care atrage recrutori și oportunități.</span>
+                    </p>
+                    <a href="/services/linkedin-optimization" class="btn btn-outline-primary mt-3">
+                        <span class="en">Learn More</span>
+                        <span class="ro">Află Mai Multe</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card animate-up">
+                    <div class="service-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="service-title">
+                        <span class="en">Career Coaching</span>
+                        <span class="ro">Coaching de Carieră</span>
+                    </h3>
+                    <p>
+                        <span class="en">Get personalized guidance to navigate your career path, overcome challenges, and achieve your professional goals.</span>
+                        <span class="ro">Primește îndrumare personalizată pentru a-ți naviga cariera, a depăși provocările și a-ți atinge obiectivele profesionale.</span>
+                    </p>
+                    <a href="/services/career-coaching" class="btn btn-outline-primary mt-3">
+                        <span class="en">Learn More</span>
+                        <span class="ro">Află Mai Multe</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tools Section -->
+<section class="tools-section">
+    <div class="container">
+        <div class="section-title animate-up">
+            <h2>
+                <span class="en">Our Career Tools</span>
+                <span class="ro">Instrumente pentru Carieră</span>
+            </h2>
+            <p>
+                <span class="en">Take advantage of our specialized career tools designed to give you an edge in your professional journey.</span>
+                <span class="ro">Profită de instrumentele noastre specializate pentru carieră, concepute pentru a-ți oferi un avantaj în călătoria ta profesională.</span>
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card tool-card animate-left">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="tool-icon d-flex align-items-center justify-content-center h-100">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <span class="en">AI CV Analyzer</span>
+                                    <span class="ro">Analizator CV cu AI</span>
+                                </h3>
+                                <p class="card-text">
+                                    <span class="en">Get instant feedback on your CV with our AI-powered analysis tool. Understand what works and what needs improvement.</span>
+                                    <span class="ro">Primește feedback instant despre CV-ul tău cu instrumentul nostru de analiză bazat pe AI. Înțelege ce funcționează și ce necesită îmbunătățire.</span>
+                                </p>
+                                <a href="/tools/cv-analyzer" class="btn btn-primary mt-3">
+                                    <span class="en">Try It Free</span>
+                                    <span class="ro">Încearcă Gratuit</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card tool-card animate-right">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="tool-icon d-flex align-items-center justify-content-center h-100">
+                                <i class="fas fa-book"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <span class="en">Career Resources</span>
+                                    <span class="ro">Resurse pentru Carieră</span>
+                                </h3>
+                                <p class="card-text">
+                                    <span class="en">Explore our comprehensive library of career guides, templates, and strategies to help you navigate your professional path.</span>
+                                    <span class="ro">Explorează biblioteca noastră cuprinzătoare de ghiduri de carieră, șabloane și strategii pentru a te ajuta să-ți navighezi drumul profesional.</span>
+                                </p>
+                                <a href="/products" class="btn btn-primary mt-3">
+                                    <span class="en">Access Resources</span>
+                                    <span class="ro">Accesează Resursele</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonial-section">
+    <div class="container">
+        <div class="section-title animate-up">
+            <h2>
+                <span class="en">Client Success Stories</span>
+                <span class="ro">Povești de Succes ale Clienților</span>
+            </h2>
+            <p>
+                <span class="en">Hear what our clients have to say about their experience working with us and the results they've achieved.</span>
+                <span class="ro">Ascultă ce au de spus clienții noștri despre experiența lor de lucru cu noi și rezultatele pe care le-au obținut.</span>
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="testimonial-card animate-up">
+                    <p class="testimonial-text">
+                        <span class="en">"The CV optimization service transformed my job search. Within two weeks, I received interview invitations from companies that had previously ignored my applications."</span>
+                        <span class="ro">"Serviciul de optimizare CV mi-a transformat căutarea unui loc de muncă. În două săptămâni, am primit invitații la interviu de la companii care anterior mi-au ignorat aplicațiile."</span>
+                    </p>
+                    <div class="testimonial-author">
+                        <span class="en">Maria D., Software Developer</span>
+                        <span class="ro">Maria D., Dezvoltator Software</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="testimonial-card animate-up">
+                    <p class="testimonial-text">
+                        <span class="en">"The career coaching sessions helped me navigate a challenging career transition. I'm now working in my dream industry with a 40% higher salary than my previous position."</span>
+                        <span class="ro">"Sesiunile de coaching de carieră m-au ajutat să navighez o tranziție dificilă în carieră. Acum lucrez în industria mea de vis cu un salariu cu 40% mai mare decât poziția anterioară."</span>
+                    </p>
+                    <div class="testimonial-author">
+                        <span class="en">Alexandru P., Marketing Manager</span>
+                        <span class="ro">Alexandru P., Manager de Marketing</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="testimonial-card animate-up">
+                    <p class="testimonial-text">
+                        <span class="en">"After optimizing my LinkedIn profile as recommended, I started receiving connection requests from recruiters every week. This led to multiple job offers and a position that was perfect for me."</span>
+                        <span class="ro">"După optimizarea profilului meu LinkedIn conform recomandărilor, am început să primesc cereri de conectare de la recrutori în fiecare săptămână. Acest lucru a dus la mai multe oferte de muncă și o poziție perfectă pentru mine."</span>
+                    </p>
+                    <div class="testimonial-author">
+                        <span class="en">Elena M., Project Manager</span>
+                        <span class="ro">Elena M., Manager de Proiect</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta">
+    <div class="container">
+        <h2 class="animate-up">
+            <span class="en">Ready to Accelerate Your Career?</span>
+            <span class="ro">Ești Gata să-ți Accelerezi Cariera?</span>
+        </h2>
+        <p class="animate-up">
+            <span class="en">Take the first step towards unlocking your full professional potential. Whether you need CV optimization, career coaching, or comprehensive career support, we're here to help you succeed.</span>
+            <span class="ro">Fă primul pas către deblocarea întregului tău potențial profesional. Fie că ai nevoie de optimizare CV, coaching de carieră sau suport complet pentru carieră, suntem aici pentru a te ajuta să reușești.</span>
+        </p>
+        <div class="d-flex justify-content-center gap-3 animate-up">
+            <a href="/services" class="btn btn-light btn-lg">
+                <span class="en">Explore Services</span>
+                <span class="ro">Explorează Serviciile</span>
+            </a>
+            <a href="/tools/cv-analyzer" class="btn btn-outline-light btn-lg">
+                <span class="en">Analyze Your CV</span>
+                <span class="ro">Analizează-ți CV-ul</span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block additional_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // This would be replaced with real placeholder images
+        // For demo purposes, we're using external placeholder service
+        document.querySelectorAll('.testimonial-img').forEach(function(img, index) {
+            // Only set the src if it doesn't already have a valid one
+            if (img.src.includes('testimonial') && !img.complete) {
+                img.src = `https://randomuser.me/api/portraits/${index % 2 ? 'women' : 'men'}/${index + 20}.jpg`;
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}The Remote Job System - Career Accelerator{% endblock %}</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary-color: #f97316;
+      --text-color: #333;
+      --light-bg: #f8fafc;
+      --dark-bg: #1e293b;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+    }
+    
+    /* Language Switcher Styles */
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      margin-left: 15px;
+    }
+    
+    .language-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .language-btn:hover, .language-btn.active {
+      color: #fff;
+      font-weight: 600;
+    }
+    
+    .language-btn.active {
+      text-decoration: underline;
+    }
+    
+    /* Hide the inactive language content */
+    .ro {
+      display: none;
+    }
+    
+    /* Hero section styles */
+    .hero-section {
+      background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+      color: white;
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+    
+    .service-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-icon {
+      height: 60px;
+      width: 60px;
+      background-color: rgba(37, 99, 235, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    
+    .stat-card {
+      border-radius: 10px;
+      padding: 1.5rem;
+      background-color: white;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      height: 100%;
+    }
+    
+    .testimonial-card {
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta-section {
+      background: linear-gradient(135deg, var(--secondary-color) 0%, #ea580c 100%);
+      color: white;
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+    }
+
+    /* Custom Button Styles */
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-secondary {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #ea580c;
+      border-color: #ea580c;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-outline-light {
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline-light:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Footer styles */
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding-top: 3rem;
+    }
+    
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+    
+    .footer-contact {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .social-links a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.25rem;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        Remote Coaching Academy
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/" id="nav-home">
+              <span class="en">Home</span>
+              <span class="ro">Acasă</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/services" id="nav-services">
+              <span class="en">Services</span>
+              <span class="ro">Servicii</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="nav-tools" role="button" data-bs-toggle="dropdown">
+              <span class="en">Tools</span>
+              <span class="ro">Instrumente</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="/tools/cv-evaluator">
+                  <span class="en">CV Evaluator</span>
+                  <span class="ro">Evaluator CV</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about" id="nav-about">
+              <span class="en">About</span>
+              <span class="ro">Despre noi</span>
+            </a>
+          </li>
+        </ul>
+        <div class="language-switcher">
+          <button class="language-btn ro-btn" onclick="switchLanguage('ro')">RO</button>
+          <span class="text-light mx-1">|</span>
+          <button class="language-btn en-btn active" onclick="switchLanguage('en')">EN</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="hero-section py-5">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-8">
+            <span class="badge bg-primary rounded-pill px-3 py-2 mb-3">
+              <span class="en">The #1 Career Accelerator for Remote & Global Job Seekers</span>
+              <span class="ro">Acceleratorul de Carieră #1 pentru Joburi Remote și Globale</span>
+            </span>
+            <h1 class="display-4 fw-bold mb-4">
+              <span class="en">Your Path to High-Paying Remote Jobs & Career Growth</span>
+              <span class="ro">Calea Ta Către Joburi Remote Bine Plătite & Creștere în Carieră</span>
+            </h1>
+            <p class="lead mb-5">
+              <span class="en">We help professionals secure high-paying jobs, optimize their CVs & LinkedIn profiles, and fast-track their career growth with proven, results-driven strategies.</span>
+              <span class="ro">Ajutăm profesioniștii să obțină joburi bine plătite, să-și optimizeze CV-urile și profilele LinkedIn și să-și accelereze creșterea în carieră cu strategii dovedite, orientate către rezultate.</span>
+            </p>
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+              <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" class="btn btn-primary">
+                <span class="en">Book a Free Strategy Call</span>
+                <span class="ro">Programează un Apel Strategic Gratuit</span>
+                <i class="fas fa-arrow-right ms-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Introduction -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-8">
+            <span class="badge bg-secondary rounded-pill px-3 py-2 mb-3">
+              <span class="en">Our Core Services</span>
+              <span class="ro">Serviciile Noastre Principale</span>
+            </span>
+            <h2 class="display-5 fw-bold mb-4">
+              <span class="en">What We Offer</span>
+              <span class="ro">Ce Oferim</span>
+            </h2>
+            <p class="lead mb-5">
+              <span class="en">Whether you're looking for a remote, hybrid, or high-paying international job, our expert coaching, AI-powered tools, and digital resources give you the competitive edge.</span>
+              <span class="ro">Fie că cauți un job remote, hibrid sau internațional bine plătit, coaching-ul nostru expert, instrumentele bazate pe AI și resursele digitale îți oferă avantajul competitiv.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service 1 -->
+    <section id="service-1" class="py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <span class="badge bg-primary mb-3">
+              <span class="en">1️⃣ CV, LinkedIn & Cover Letter Optimization</span>
+              <span class="ro">1️⃣ Optimizare CV, LinkedIn și Scrisoare de Intenție</span>
+            </span>
+            <h3 class="h2 mb-3">
+              <span class="en">Stand Out in Seconds</span>
+              <span class="ro">Ieși în Evidență în Câteva Secunde</span>
+            </h3>
+            <p class="text-muted mb-4">
+              <span class="en">Your job applications must stand out within seconds—we make sure they do.</span>
+              <span class="ro">Aplicațiile tale pentru job trebuie să iasă în evidență în câteva secunde—noi ne asigurăm că o fac.</span>
+            </p>
+            <ul class="list-unstyled mb-4">
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">ATS-Optimized CVs</span>
+                    <span class="ro">CV-uri Optimizate pentru ATS</span>
+                  </strong> – 
+                  <span class="en">Designed to pass recruiter screenings & AI filters.</span>
+                  <span class="ro">Concepute pentru a trece de filtrele recrutorilor și AI.</span>
+                </div>
+              </li>
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">High-Impact LinkedIn Profiles</span>
+                    <span class="ro">Profile LinkedIn cu Impact Ridicat</span>
+                  </strong> – 
+                  <span class="en">Attract recruiters & direct job offers.</span>
+                  <span class="ro">Atrage recrutori și oferte directe de muncă.</span>
+                </div>
+              </li>
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">Professional Cover Letters</span>
+                    <span class="ro">Scrisori de Intenție Profesionale</span>
+                  </strong> – 
+                  <span class="en">Tailored & personalized for higher response rates.</span>
+                  <span class="ro">Personalizate pentru rate de răspuns mai mari.</span>
+                </div>
+              </li>
+            </ul>
+            <div class="border-top pt-4 mb-4">
+              <p class="fw-medium">
+                <span class="en">Result? More job interviews & higher chances of landing your dream role.</span>
+                <span class="ro">Rezultat? Mai multe interviuri și șanse mai mari de a obține jobul visat.</span>
+              </p>
+            </div>
+            <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" class="btn btn-primary">
+              <span class="en">Book a CV & LinkedIn Optimization Session</span>
+              <span class="ro">Programează o Sesiune de Optimizare CV & LinkedIn</span>
+              <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+          </div>
+          <div class="col-lg-6">
+            <div class="card shadow">
+              <div class="card-body">
+                <h3 class="card-title">
+                  <span class="en">Client Success Story</span>
+                  <span class="ro">Poveste de Succes a Clientului</span>
+                </h3>
+                <p class="text-muted small">
+                  <span class="en">From 0 to 5 interviews in just 2 weeks</span>
+                  <span class="ro">De la 0 la 5 interviuri în doar 2 săptămâni</span>
+                </p>
+                <blockquote class="blockquote border-start border-primary ps-4 my-4 font-italic">
+                  <p class="mb-0">
+                    <span class="en">"After optimizing my CV and LinkedIn profile with Remote Coaching Academy, I started getting calls from recruiters within days. I landed a remote position with a 30% salary increase!"</span>
+                    <span class="ro">"După optimizarea CV-ului și a profilului LinkedIn cu Remote Coaching Academy, am început să primesc apeluri de la recrutori în câteva zile. Am obținut o poziție remote cu o creștere salarială de 30%!"</span>
+                  </p>
+                </blockquote>
+                <div class="d-flex align-items-center">
+                  <div class="rounded-circle bg-light p-2 me-3 text-center" style="width: 50px; height: 50px;">
+                    <span class="fw-medium">MJ</span>
+                  </div>
+                  <div>
+                    <p class="fw-medium mb-0">
+                      <span class="en">Maria J.</span>
+                      <span class="ro">Maria J.</span>
+                    </p>
+                    <p class="text-muted small mb-0">
+                      <span class="en">Marketing Specialist</span>
+                      <span class="ro">Specialist Marketing</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service 2 -->
+    <section id="service-2" class="py-5 bg-light">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-2 order-lg-1">
+            <div class="card shadow h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-4">
+                  <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle me-3" style="width: 60px; height: 60px;">
+                    <i class="fas fa-bullseye text-primary"></i>
+                  </div>
+                  <div>
+                    <h4 class="mb-1">
+                      <span class="en">Strategic Approach</span>
+                      <span class="ro">Abordare Strategică</span>
+                    </h4>
+                    <p class="text-muted small mb-0">
+                      <span class="en">Targeted applications yield better results</span>
+                      <span class="ro">Aplicațiile țintite produc rezultate mai bune</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <div class="bg-light rounded p-3 mb-3">
+                    <h5 class="fw-medium mb-2">
+                      <span class="en">Before Our Coaching:</span>
+                      <span class="ro">Înainte de Coaching-ul Nostru:</span>
+                    </h5>
+                    <p class="text-muted small mb-0">
+                      <span class="en">100+ applications, 0-2 interviews</span>
+                      <span class="ro">100+ aplicații, 0-2 interviuri</span>
+                    </p>
+                  </div>
+                  <div class="bg-primary bg-opacity-10 rounded p-3">
+                    <h5 class="fw-medium mb-2">
+                      <span class="en">After Our Coaching:</span>
+                      <span class="ro">După Coaching-ul Nostru:</span>
+                    </h5>
+                    <p class="text-primary small mb-0">
+                      <span class="en">20-30 targeted applications, 5-10 interviews</span>
+                      <span class="ro">20-30 aplicații țintite, 5-10 interviuri</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2 mb-4 mb-lg-0">
+            <span class="badge bg-primary mb-3">
+              <span class="en">2️⃣ Career Coaching & Job Search Acceleration</span>
+              <span class="ro">2️⃣ Coaching de Carieră & Accelerarea Căutării Job-ului</span>
+            </span>
+            <h3 class="h2 mb-3">
+              <span class="en">Stop Applying Blindly</span>
+              <span class="ro">Oprește Aplicarea Oarbă</span>
+            </h3>
+            <p class="text-muted mb-4">
+              <span class="en">Applying to jobs without a strategy is like throwing darts in the dark. We show you exactly where to apply, how to position yourself, and how to land interviews faster.</span>
+              <span class="ro">Aplicarea la joburi fără o strategie este ca aruncarea săgeților în întuneric. Îți arătăm exact unde să aplici, cum să te poziționezi și cum să obții interviuri mai rapid.</span>
+            </p>
+            <ul class="list-unstyled mb-4">
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">Custom Job Search Strategy</span>
+                    <span class="ro">Strategie Personalizată de Căutare a Job-ului</span>
+                  </strong> – 
+                  <span class="en">Avoid common mistakes & apply smarter.</span>
+                  <span class="ro">Evită greșelile comune și aplică mai inteligent.</span>
+                </div>
+              </li>
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">1:1 & Group Coaching</span>
+                    <span class="ro">Coaching 1:1 & de Grup</span>
+                  </strong> – 
+                  <span class="en">Direct support from experts who know what works.</span>
+                  <span class="ro">Suport direct de la experți care știu ce funcționează.</span>
+                </div>
+              </li>
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">Hidden Job Market Tactics</span>
+                    <span class="ro">Tactici pentru Piața Ascunsă a Job-urilor</span>
+                  </strong> – 
+                  <span class="en">Find & apply to unlisted, high-paying jobs.</span>
+                  <span class="ro">Găsește și aplică la joburi nelistate, bine plătite.</span>
+                </div>
+              </li>
+            </ul>
+            <div class="border-top pt-4 mb-4">
+              <p class="fw-medium">
+                <span class="en">Result? You stop wasting time on ineffective applications and start getting real interview invites.</span>
+                <span class="ro">Rezultat? Încetezi să mai pierzi timp cu aplicații ineficiente și începi să primești invitații reale la interviuri.</span>
+              </p>
+            </div>
+            <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" class="btn btn-primary">
+              <span class="en">Join Our Career Coaching Program & Get Hired Faster</span>
+              <span class="ro">Alătură-te Programului Nostru de Coaching & Fii Angajat Mai Repede</span>
+              <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service 3 -->
+    <section id="service-3" class="py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <span class="badge bg-primary mb-3">
+              <span class="en">3️⃣ Salary Negotiation & Interview Coaching</span>
+              <span class="ro">3️⃣ Negocierea Salariului & Coaching pentru Interviu</span>
+            </span>
+            <h3 class="h2 mb-3">
+              <span class="en">Never Leave Money on the Table</span>
+              <span class="ro">Nu Lăsa Niciodată Bani pe Masă</span>
+            </h3>
+            <p class="text-muted mb-4">
+              <span class="en">You're leaving money on the table if you don't know how to negotiate.</span>
+              <span class="ro">Lași bani pe masă dacă nu știi cum să negociezi.</span>
+            </p>
+            <ul class="list-unstyled mb-4">
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">Salary Negotiation Strategies</span>
+                    <span class="ro">Strategii de Negociere a Salariului</span>
+                  </strong> – 
+                  <span class="en">Increase offers by €5,000–€20,000+.</span>
+                  <span class="ro">Crește ofertele cu €5.000–€20.000+.</span>
+                </div>
+              </li>
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">Mock Interviews & Feedback</span>
+                    <span class="ro">Interviuri Simulate & Feedback</span>
+                  </strong> – 
+                  <span class="en">Real-world practice to boost confidence.</span>
+                  <span class="ro">Practică din lumea reală pentru a-ți crește încrederea.</span>
+                </div>
+              </li>
+              <li class="d-flex align-items-start mb-3">
+                <i class="fas fa-check text-primary me-2 mt-1"></i>
+                <div>
+                  <strong>
+                    <span class="en">Personal Branding for Interviews</span>
+                    <span class="ro">Branding Personal pentru Interviuri</span>
+                  </strong> – 
+                  <span class="en">Learn how to sell yourself the right way.</span>
+                  <span class="ro">Învață cum să te vinzi în mod corect.</span>
+                </div>
+              </li>
+            </ul>
+            <div class="border-top pt-4 mb-4">
+              <p class="fw-medium">
+                <span class="en">Result? You walk into interviews fully prepared, confident, and ready to win.</span>
+                <span class="ro">Rezultat? Intri în interviuri complet pregătit, încrezător și gata să câștigi.</span>
+              </p>
+            </div>
+            <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" class="btn btn-primary">
+              <span class="en">Book an Interview & Salary Coaching Session</span>
+              <span class="ro">Programează o Sesiune de Coaching pentru Interviu & Salariu</span>
+              <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+          </div>
+          <div class="col-lg-6">
+            <div class="card shadow">
+              <div class="card-body">
+                <h3 class="card-title mb-3">
+                  <span class="en">Salary Increase Statistics</span>
+                  <span class="ro">Statistici privind Creșterea Salarială</span>
+                </h3>
+                <p class="text-muted small mb-4">
+                  <span class="en">Our clients' average results</span>
+                  <span class="ro">Rezultatele medii ale clienților noștri</span>
+                </p>
+                
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="small fw-medium">
+                      <span class="en">Entry Level</span>
+                      <span class="ro">Nivel de Început</span>
+                    </span>
+                    <span class="small fw-medium text-primary">+€5,000</span>
+                  </div>
+                  <div class="progress" style="height: 10px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="small fw-medium">
+                      <span class="en">Mid Level</span>
+                      <span class="ro">Nivel Mediu</span>
+                    </span>
+                    <span class="small fw-medium text-primary">+€10,000</span>
+                  </div>
+                  <div class="progress" style="height: 10px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="small fw-medium">
+                      <span class="en">Senior Level</span>
+                      <span class="ro">Nivel Senior</span>
+                    </span>
+                    <span class="small fw-medium text-primary">+€20,000+</span>
+                  </div>
+                  <div class="progress" style="height: 10px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service 4 - Premium Offering -->
+    <section id="service-4" class="py-5 bg-dark text-white">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-10 text-center">
+            <span class="badge bg-primary mb-3">
+              <span class="en">⭐ Premium Offering</span>
+              <span class="ro">⭐ Serviciu Premium</span>
+            </span>
+            <h3 class="h2 mb-3">
+              <span class="en">Remote Career Accelerator Program</span>
+              <span class="ro">Program de Accelerare a Carierei Remote</span>
+            </h3>
+            <p class="lead mb-5">
+              <span class="en">Our flagship 12-week coaching program transforms your career from start to finish.</span>
+              <span class="ro">Programul nostru de coaching de 12 săptămâni îți transformă cariera de la început până la sfârșit.</span>
+            </p>
+          </div>
+        </div>
+        
+        <div class="row justify-content-center mb-4">
+          <div class="col-lg-10">
+            <div class="card bg-dark text-white border border-light">
+              <div class="card-body p-4">
+                <div class="row align-items-center">
+                  <div class="col-md-3 mb-3 mb-md-0 text-center text-md-start">
+                    <span class="h5 fw-bold d-block mb-1">
+                      <span class="en">Duration</span>
+                      <span class="ro">Durată</span>
+                    </span>
+                    <span class="text-primary fw-medium">12 
+                      <span class="en">Weeks</span>
+                      <span class="ro">Săptămâni</span>
+                    </span>
+                  </div>
+                  <div class="col-md-3 mb-3 mb-md-0 text-center">
+                    <span class="h5 fw-bold d-block mb-1">
+                      <span class="en">Format</span>
+                      <span class="ro">Format</span>
+                    </span>
+                    <span class="text-primary fw-medium">1:1 
+                      <span class="en">Coaching</span>
+                      <span class="ro">Coaching</span>
+                    </span>
+                  </div>
+                  <div class="col-md-3 mb-3 mb-md-0 text-center">
+                    <span class="h5 fw-bold d-block mb-1">
+                      <span class="en">Sessions</span>
+                      <span class="ro">Sesiuni</span>
+                    </span>
+                    <span class="text-primary fw-medium">8+
+                      <span class="en">Calls</span>
+                      <span class="ro">Apeluri</span>
+                    </span>
+                  </div>
+                  <div class="col-md-3 text-center text-md-end">
+                    <span class="h5 fw-bold d-block mb-1">
+                      <span class="en">Support</span>
+                      <span class="ro">Suport</span>
+                    </span>
+                    <span class="text-primary fw-medium">
+                      <span class="en">Unlimited</span>
+                      <span class="ro">Nelimitat</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="card h-100 bg-dark text-white border border-light">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                    <i class="fas fa-search"></i>
+                  </div>
+                  <h4 class="card-title m-0">
+                    <span class="en">Phase 1: Discovery</span>
+                    <span class="ro">Faza 1: Descoperire</span>
+                  </h4>
+                </div>
+                <p class="card-text mb-0">
+                  <span class="en">We identify your strengths, ideal roles, and create a personalized career roadmap.</span>
+                  <span class="ro">Identificăm punctele tale forte, rolurile ideale și creăm o foaie de parcurs personalizată pentru carieră.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-4 mb-4">
+            <div class="card h-100 bg-dark text-white border border-light">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                    <i class="fas fa-tools"></i>
+                  </div>
+                  <h4 class="card-title m-0">
+                    <span class="en">Phase 2: Implementation</span>
+                    <span class="ro">Faza 2: Implementare</span>
+                  </h4>
+                </div>
+                <p class="card-text mb-0">
+                  <span class="en">Resume transformation, LinkedIn optimization, job search strategy, and application process.</span>
+                  <span class="ro">Transformarea CV-ului, optimizarea LinkedIn, strategia de căutare a locurilor de muncă și procesul de aplicare.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-4 mb-4">
+            <div class="card h-100 bg-dark text-white border border-light">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                    <i class="fas fa-trophy"></i>
+                  </div>
+                  <h4 class="card-title m-0">
+                    <span class="en">Phase 3: Winning</span>
+                    <span class="ro">Faza 3: Câștigarea</span>
+                  </h4>
+                </div>
+                <p class="card-text mb-0">
+                  <span class="en">Interview preparation, salary negotiation, and securing your ideal remote role.</span>
+                  <span class="ro">Pregătirea pentru interviu, negocierea salariului și asigurarea rolului remote ideal.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center">
+            <div class="p-4 mb-4 bg-primary bg-opacity-10 rounded">
+              <p class="mb-0 fw-medium">
+                <span class="en">Average client results: 60-80% salary increase, 90% reduced time to hire, 100% confidence boost.</span>
+                <span class="ro">Rezultatele medii ale clienților: creștere salarială de 60-80%, timp redus de angajare cu 90%, creștere a încrederii cu 100%.</span>
+              </p>
+            </div>
+            <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" class="btn btn-primary btn-lg">
+              <span class="en">Apply for the Career Accelerator Program</span>
+              <span class="ro">Aplică pentru Programul de Accelerare a Carierei</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why-choose-us" class="py-5 bg-light">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-8 text-center">
+            <span class="badge bg-primary mb-3">
+              <span class="en">Why Choose Us</span>
+              <span class="ro">De Ce Să Ne Alegi</span>
+            </span>
+            <h3 class="h2 mb-3">
+              <span class="en">Not Just Another Coaching Service</span>
+              <span class="ro">Nu Doar Un Alt Serviciu de Coaching</span>
+            </h3>
+            <p class="lead mb-0">
+              <span class="en">We stand out because we focus on what matters: getting you hired faster, at higher pay.</span>
+              <span class="ro">Ne distingem pentru că ne concentrăm pe ceea ce contează: să te angajăm mai repede, cu plată mai mare.</span>
+            </p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <!-- Feature 1 -->
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-4" style="width: 80px; height: 80px;">
+                  <i class="fas fa-chart-line text-primary fa-2x"></i>
+                </div>
+                <h4 class="card-title mb-3">
+                  <span class="en">Results-Driven</span>
+                  <span class="ro">Orientat Spre Rezultate</span>
+                </h4>
+                <p class="card-text">
+                  <span class="en">We don't just teach theory—we get clients HIRED with proven strategies that work in today's job market.</span>
+                  <span class="ro">Nu predăm doar teorie—ne angajăm clienții cu strategii dovedite care funcționează pe piața actuală a muncii.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Feature 2 -->
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-4" style="width: 80px; height: 80px;">
+                  <i class="fas fa-user-check text-primary fa-2x"></i>
+                </div>
+                <h4 class="card-title mb-3">
+                  <span class="en">Industry Expertise</span>
+                  <span class="ro">Expertiză în Industrie</span>
+                </h4>
+                <p class="card-text">
+                  <span class="en">Our coaches have worked as hiring managers and recruiters—we know exactly what employers want.</span>
+                  <span class="ro">Antrenorii noștri au lucrat ca manageri de angajare și recrutori—știm exact ce își doresc angajatorii.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Feature 3 -->
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-4" style="width: 80px; height: 80px;">
+                  <i class="fas fa-rocket text-primary fa-2x"></i>
+                </div>
+                <h4 class="card-title mb-3">
+                  <span class="en">Proven System</span>
+                  <span class="ro">Sistem Dovedit</span>
+                </h4>
+                <p class="card-text">
+                  <span class="en">Our methodology has helped 500+ professionals land remote jobs with an average of 40% salary increase.</span>
+                  <span class="ro">Metodologia noastră a ajutat peste 500 de profesioniști să obțină locuri de muncă la distanță cu o creștere salarială medie de 40%.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-5 bg-white">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-8 text-center">
+            <span class="badge bg-primary mb-3">
+              <span class="en">Success Stories</span>
+              <span class="ro">Povești de Succes</span>
+            </span>
+            <h3 class="h2 mb-3">
+              <span class="en">What Our Clients Say</span>
+              <span class="ro">Ce Spun Clienții Noștri</span>
+            </h3>
+            <p class="lead mb-0">
+              <span class="en">Real results from real people who trusted our process.</span>
+              <span class="ro">Rezultate reale de la oameni reali care au avut încredere în procesul nostru.</span>
+            </p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <!-- Testimonial 1 -->
+          <div class="col-lg-4 mb-4">
+            <div class="card h-100 shadow">
+              <div class="card-body p-4">
+                <div class="mb-3">
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                </div>
+                <p class="card-text mb-4">
+                  <span class="en">"After 6 months of failed job searching, I found Remote Coaches. Within 5 weeks, I had 3 job offers and negotiated a €20,000 salary increase. The investment paid for itself many times over."</span>
+                  <span class="ro">"După 6 luni de căutare eșuată a unui loc de muncă, am găsit Remote Coaches. În 5 săptămâni, am avut 3 oferte de muncă și am negociat o creștere salarială de 20.000 €. Investiția s-a amortizat de multe ori."</span>
+                </p>
+                <div class="d-flex align-items-center">
+                  <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                    <span class="text-white fw-bold">DM</span>
+                  </div>
+                  <div>
+                    <h5 class="card-title mb-0">Daniel M.</h5>
+                    <p class="card-subtitle text-muted small">
+                      <span class="en">Software Engineer</span>
+                      <span class="ro">Inginer Software</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 2 -->
+          <div class="col-lg-4 mb-4">
+            <div class="card h-100 shadow">
+              <div class="card-body p-4">
+                <div class="mb-3">
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                </div>
+                <p class="card-text mb-4">
+                  <span class="en">"The Career Accelerator program completely transformed my job search approach. My LinkedIn profile views increased by 400%, and I landed my dream remote role at a US company with double my previous salary."</span>
+                  <span class="ro">"Programul Career Accelerator mi-a transformat complet abordarea căutării unui loc de muncă. Vizualizările profilului meu LinkedIn au crescut cu 400%, și am obținut rolul meu de vis la o companie din SUA cu dublu față de salariul anterior."</span>
+                </p>
+                <div class="d-flex align-items-center">
+                  <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                    <span class="text-white fw-bold">AS</span>
+                  </div>
+                  <div>
+                    <h5 class="card-title mb-0">Ana S.</h5>
+                    <p class="card-subtitle text-muted small">
+                      <span class="en">Marketing Manager</span>
+                      <span class="ro">Manager Marketing</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial 3 -->
+          <div class="col-lg-4 mb-4">
+            <div class="card h-100 shadow">
+              <div class="card-body p-4">
+                <div class="mb-3">
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                  <i class="fas fa-star text-warning"></i>
+                </div>
+                <p class="card-text mb-4">
+                  <span class="en">"The interview coaching was invaluable. I went from being nervous and unprepared to confident and articulate. The salary negotiation techniques alone helped me secure an additional €15,000 on top of the initial offer."</span>
+                  <span class="ro">"Coaching-ul pentru interviuri a fost de neprețuit. Am trecut de la a fi nervos și nepregătit la a fi încrezător și articulat. Doar tehnicile de negociere salarială m-au ajutat să obțin încă 15.000 € peste oferta inițială."</span>
+                </p>
+                <div class="d-flex align-items-center">
+                  <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+                    <span class="text-white fw-bold">MR</span>
+                  </div>
+                  <div>
+                    <h5 class="card-title mb-0">Mihai R.</h5>
+                    <p class="card-subtitle text-muted small">
+                      <span class="en">Product Manager</span>
+                      <span class="ro">Manager de Produs</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-5 bg-light">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-8 text-center">
+            <span class="badge bg-primary mb-3">
+              <span class="en">Frequently Asked Questions</span>
+              <span class="ro">Întrebări Frecvente</span>
+            </span>
+            <h3 class="h2 mb-3">
+              <span class="en">Answers to Your Questions</span>
+              <span class="ro">Răspunsuri la Întrebările Tale</span>
+            </h3>
+            <p class="lead mb-0">
+              <span class="en">Find answers to common questions about our services and process.</span>
+              <span class="ro">Găsește răspunsuri la întrebările frecvente despre serviciile noastre și procesul nostru.</span>
+            </p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <!-- FAQ 1 -->
+          <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow">
+              <div class="card-body p-4">
+                <h4 class="card-title mb-3">
+                  <span class="en">How long is the coaching program?</span>
+                  <span class="ro">Cât durează programul de coaching?</span>
+                </h4>
+                <p class="card-text">
+                  <span class="en">The program typically lasts 12 weeks.</span>
+                  <span class="ro">Programul durează în general 12 săptămâni.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- FAQ 2 -->
+          <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow">
+              <div class="card-body p-4">
+                <h4 class="card-title mb-3">
+                  <span class="en">What is the success rate of your coaching?</span>
+                  <span class="ro">Care este rata de succes a coaching-ului dumneavoastră?</span>
+                </h4>
+                <p class="card-text">
+                  <span class="en">Over 90% of our clients land remote job offers within 3 months of completing our program.</span>
+                  <span class="ro">Peste 90% dintre clienții noștri primesc oferte de muncă la distanță în termen de 3 luni de la finalizarea programului nostru.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- FAQ 3 -->
+          <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow">
+              <div class="card-body p-4">
+                <h4 class="card-title mb-3">
+                  <span class="en">Do you offer a guarantee?</span>
+                  <span class="ro">Oferiți o garanție?</span>
+                </h4>
+                <p class="card-text">
+                  <span class="en">Yes, if you follow our system exactly and don't get results within the specified timeframe, we offer a partial refund.</span>
+                  <span class="ro">Da, dacă urmați sistemul nostru exact și nu obțineți rezultate în intervalul de timp specificat, oferim o rambursare parțială.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- FAQ 4 -->
+          <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow">
+              <div class="card-body p-4">
+                <h4 class="card-title mb-3">
+                  <span class="en">How much time do I need to invest weekly?</span>
+                  <span class="ro">Cât timp trebuie să investesc săptămânal?</span>
+                </h4>
+                <p class="card-text">
+                  <span class="en">Plan for 5-10 hours per week, including coaching sessions, homework, and job applications.</span>
+                  <span class="ro">Planificați 5-10 ore pe săptămână, inclusiv sesiunile de coaching, temele și aplicațiile pentru locuri de muncă.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 bg-primary text-white">
+      <div class="container py-4">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-8">
+            <h2 class="h1 mb-4">
+              <span class="en">Take the First Step Toward Your Remote Career</span>
+              <span class="ro">Fă Primul Pas Spre Cariera Ta Remote</span>
+            </h2>
+            <p class="lead mb-4">
+              <span class="en">Book a free 30-minute strategy call and let's discuss how we can help you achieve your career goals.</span>
+              <span class="ro">Programează un apel strategic gratuit de 30 de minute și să discutăm cum te putem ajuta să-ți atingi obiectivele în carieră.</span>
+            </p>
+            <div class="d-flex flex-column flex-sm-row justify-content-center">
+              <a href="https://stan.store/Remoteguru/p/programeaz-un-apel-11-cu-mine-yex7j9l3" class="btn btn-primary">
+                <span class="en">Book a Free Strategy Call</span>
+                <span class="ro">Programează un Apel Strategic Gratuit</span>
+                <i class="fas fa-arrow-right ms-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="footer-heading">
+            <span class="en">Remote Coaching Academy</span>
+            <span class="ro">Remote Coaching Academy</span>
+          </h5>
+          <p class="footer-contact">
+            <span class="en">Email: remotegururomania@gmail.com</span>
+            <span class="ro">Email: remotegururomania@gmail.com</span>
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2 col-6 mb-4 mb-md-0">
+          <h5 class="footer-heading">
+            <span class="en">Services</span>
+            <span class="ro">Servicii</span>
+          </h5>
+          <div class="footer-links">
+            <a href="/services/cv-optimization">
+              <span class="en">CV Optimization</span>
+              <span class="ro">Optimizare CV</span>
+            </a>
+            <a href="/services/linkedin-optimization">
+              <span class="en">LinkedIn Optimization</span>
+              <span class="ro">Optimizare LinkedIn</span>
+            </a>
+            <a href="/services/career-coaching">
+              <span class="en">Career Coaching</span>
+              <span class="ro">Coaching de Carieră</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-2 col-6 mb-4 mb-md-0">
+          <h5 class="footer-heading">
+            <span class="en">Tools</span>
+            <span class="ro">Instrumente</span>
+          </h5>
+          <div class="footer-links">
+            <a href="/tools/cv-evaluator">
+              <span class="en">CV Evaluator</span>
+              <span class="ro">Evaluator CV</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-2 col-6 mb-4 mb-md-0">
+          <h5 class="footer-heading">
+            <span class="en">Company</span>
+            <span class="ro">Companie</span>
+          </h5>
+          <div class="footer-links">
+            <a href="/about">
+              <span class="en">About Us</span>
+              <span class="ro">Despre Noi</span>
+            </a>
+            <a href="/blog">
+              <span class="en">Blog</span>
+              <span class="ro">Blog</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-2 col-6 mb-4 mb-md-0">
+          <h5 class="footer-heading">
+            <span class="en">Legal</span>
+            <span class="ro">Legal</span>
+          </h5>
+          <div class="footer-links">
+            <a href="/privacy">
+              <span class="en">Privacy Policy</span>
+              <span class="ro">Politica de Confidențialitate</span>
+            </a>
+            <a href="/terms">
+              <span class="en">Terms of Service</span>
+              <span class="ro">Termeni și Condiții</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start">
+            <span class="en">&copy; 2024 Remote Coaching Academy. All rights reserved.</span>
+            <span class="ro">&copy; 2024 Remote Coaching Academy. Toate drepturile rezervate.</span>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <div class="language-switcher">
+              <button class="language-btn ro-btn" onclick="switchLanguage('ro')">RO</button>
+              <span class="text-light mx-1">|</span>
+              <button class="language-btn en-btn active" onclick="switchLanguage('en')">EN</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Custom JS -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

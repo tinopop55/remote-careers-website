@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+
+{% block title %}
+<span class="en">Remote Coaching Academy - Land Your Dream Remote Job</span>
+<span class="ro">Remote Coaching Academy - Obține Jobul Remote Visat</span>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-gradient-primary text-white py-5">
+    <div class="container">
+        <div class="row justify-content-center py-5">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeIn">
+                    <span class="en">Land Your Dream Remote Job</span>
+                    <span class="ro">Obține Jobul Remote Visat</span>
+                </h1>
+                <p class="lead mb-5 animate__animated animate__fadeIn animate__delay-1s">
+                    <span class="en">Professional coaching and AI-powered tools to maximize your chances of getting hired</span>
+                    <span class="ro">Coaching profesional și instrumente bazate pe AI pentru a-ți maximiza șansele de angajare</span>
+                </p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap animate__animated animate__fadeIn animate__delay-2s">
+                    <a href="/tools/cv-evaluator" class="btn btn-light btn-lg shadow-hover">
+                        <span class="en">Free CV Analysis</span>
+                        <span class="ro">Analiză CV Gratuită</span>
+                    </a>
+                    <a href="/services" class="btn btn-outline-light btn-lg">
+                        <span class="en">Our Services</span>
+                        <span class="ro">Serviciile Noastre</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Value Proposition -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h2 class="mb-4">
+                    <span class="en">Why Choose Remote Coaching Academy?</span>
+                    <span class="ro">De ce să alegi Remote Coaching Academy?</span>
+                </h2>
+                <p class="lead text-muted mb-5">
+                    <span class="en">We've helped over 500 professionals secure their dream remote jobs with our proven methods</span>
+                    <span class="ro">Am ajutat peste 500 de profesioniști să obțină joburile remote visate cu metodele noastre dovedite</span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 animate-on-scroll">
+                    <div class="card-body p-4 text-center">
+                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="h5 card-title">
+                            <span class="en">85% Success Rate</span>
+                            <span class="ro">Rată de Succes de 85%</span>
+                        </h3>
+                        <p class="card-text text-muted">
+                            <span class="en">Our clients see results in half the time compared to traditional job hunting methods</span>
+                            <span class="ro">Clienții noștri văd rezultate în jumătate din timp față de metodele tradiționale de căutare a unui loc de muncă</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 animate-on-scroll" data-delay="200">
+                    <div class="card-body p-4 text-center">
+                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="h5 card-title">
+                            <span class="en">AI-Powered Tools</span>
+                            <span class="ro">Instrumente Bazate pe AI</span>
+                        </h3>
+                        <p class="card-text text-muted">
+                            <span class="en">Our tools analyze your CV against ATS systems and industry standards to maximize your chances</span>
+                            <span class="ro">Instrumentele noastre îți analizează CV-ul în raport cu sistemele ATS și standardele industriei pentru a-ți maximiza șansele</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 animate-on-scroll" data-delay="400">
+                    <div class="card-body p-4 text-center">
+                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 class="h5 card-title">
+                            <span class="en">Expert Coaching</span>
+                            <span class="ro">Coaching Expert</span>
+                        </h3>
+                        <p class="card-text text-muted">
+                            <span class="en">Personalized guidance from senior recruiters with over 15 years of experience</span>
+                            <span class="ro">Îndrumare personalizată de la recrutori seniori cu peste 15 ani de experiență</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA - CV Analysis -->
+<section class="py-5 bg-white">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0 animate-on-scroll">
+                <img src="{{ url_for('static', filename='images/obtine analiza CV-ul tau gratuit.jpg') }}" alt="CV Analysis" class="img-fluid rounded shadow-sm">
+            </div>
+            <div class="col-lg-6 animate-on-scroll" data-delay="200">
+                <h2 class="mb-3">
+                    <span class="en">Get Your CV Analyzed For Free</span>
+                    <span class="ro">Obține Analiza CV-ului Tău Gratuit</span>
+                </h2>
+                <p class="text-muted mb-4">
+                    <span class="en">Our AI-powered CV analyzer will provide you with:</span>
+                    <span class="ro">Analizatorul nostru CV bazat pe AI îți va oferi:</span>
+                </p>
+                <ul class="list-unstyled mb-4">
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span class="en">ATS Compatibility Score</span>
+                        <span class="ro">Scor de Compatibilitate ATS</span>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span class="en">Industry Fit Evaluation</span>
+                        <span class="ro">Evaluare a Potrivirii cu Industria</span>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span class="en">Personalized Recommendations</span>
+                        <span class="ro">Recomandări Personalizate</span>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span class="en">Key Areas for Improvement</span>
+                        <span class="ro">Zone Cheie pentru Îmbunătățire</span>
+                    </li>
+                </ul>
+                <a href="/tools/cv-evaluator" class="btn btn-primary">
+                    <span class="en">Analyze My CV</span>
+                    <span class="ro">Analizează CV-ul Meu</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-8">
+                <h2>
+                    <span class="en">Success Stories</span>
+                    <span class="ro">Povești de Succes</span>
+                </h2>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card testimonial-card border-0 shadow-sm h-100 animate-on-scroll">
+                    <div class="card-body p-4">
+                        <div class="rating text-warning mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text mb-4">
+                            <span class="en">"I received 3 job offers in the first week after optimizing my CV with Remote Coaching Academy. Their service is truly life-changing!"</span>
+                            <span class="ro">"Am primit 3 oferte de muncă în prima săptămână după optimizarea CV-ului cu Remote Coaching Academy. Serviciul lor chiar îți schimbă viața!"</span>
+                        </p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Maria P.</h6>
+                                <small class="text-muted">
+                                    <span class="en">Software Developer</span>
+                                    <span class="ro">Developer Software</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card testimonial-card border-0 shadow-sm h-100 animate-on-scroll" data-delay="200">
+                    <div class="card-body p-4">
+                        <div class="rating text-warning mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text mb-4">
+                            <span class="en">"The ATS score helped me understand where I was going wrong with my CV. Now I'm working remotely for a US company with double my previous salary!"</span>
+                            <span class="ro">"Scorul ATS m-a ajutat să înțeleg unde greșeam cu CV-ul. Acum lucrez remote pentru o companie din SUA cu un salariu dublu față de cel anterior!"</span>
+                        </p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Andrei M.</h6>
+                                <small class="text-muted">
+                                    <span class="en">Project Manager</span>
+                                    <span class="ro">Manager de Proiect</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card testimonial-card border-0 shadow-sm h-100 animate-on-scroll" data-delay="400">
+                    <div class="card-body p-4">
+                        <div class="rating text-warning mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text mb-4">
+                            <span class="en">"The LinkedIn optimization service transformed my profile. I'm now getting contacted by recruiters weekly instead of having to apply to jobs."</span>
+                            <span class="ro">"Serviciul de optimizare LinkedIn mi-a transformat profilul. Acum sunt contactat săptămânal de recrutori în loc să trebuiască să aplic la joburi."</span>
+                        </p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0">Elena D.</h6>
+                                <small class="text-muted">
+                                    <span class="en">Marketing Specialist</span>
+                                    <span class="ro">Specialist Marketing</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="py-5 bg-primary text-white">
+    <div class="container py-4 text-center">
+        <h2 class="mb-4">
+            <span class="en">Ready to Transform Your Career?</span>
+            <span class="ro">Pregătit să-ți Transformi Cariera?</span>
+        </h2>
+        <p class="lead mb-4">
+            <span class="en">Take the first step towards your dream remote job today</span>
+            <span class="ro">Fă primul pas către jobul remote visat astăzi</span>
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="/tools/cv-evaluator" class="btn btn-light btn-lg">
+                <span class="en">Free CV Analysis</span>
+                <span class="ro">Analiză CV Gratuită</span>
+            </a>
+            <a href="/services" class="btn btn-outline-light btn-lg">
+                <span class="en">Explore All Services</span>
+                <span class="ro">Explorează Toate Serviciile</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, var(--bs-primary) 0%, #2c5ebd 100%);
+    }
+    
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    
+    .shadow-hover {
+        transition: all 0.3s ease;
+    }
+    
+    .shadow-hover:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    
+    .testimonial-card {
+        transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+    
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.1);
+        z-index: 0;
+    }
+    
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -15%;
+        left: -5%;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.05);
+        z-index: 0;
+    }
+    
+    .hero-section .container {
+        position: relative;
+        z-index: 1;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-section::before,
+        .hero-section::after {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}
+

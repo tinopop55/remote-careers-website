@@ -1,0 +1,605 @@
+{% extends "base.html" %}
+
+{% block title %}
+<span class="en">CV Analyzer - Get Professional Feedback on Your Resume</span>
+<span class="ro">Analizator CV - Primește Feedback Profesional pentru CV-ul Tău</span>
+{% endblock %}
+
+{% block additional_css %}
+<style>
+    .cv-analyzer-section {
+        padding: 5rem 0;
+        background-color: var(--light-bg);
+    }
+    
+    .cv-analyzer-form {
+        background-color: white;
+        border-radius: 15px;
+        padding: 2.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .cv-upload-area {
+        border: 2px dashed #dee2e6;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .cv-upload-area:hover, .cv-upload-area.dragover {
+        border-color: var(--primary-color);
+        background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .cv-upload-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+    
+    .file-selected .cv-upload-icon {
+        color: var(--success-color);
+    }
+    
+    .cv-result {
+        background-color: white;
+        border-radius: 15px;
+        padding: 2.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+    }
+    
+    .score-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+    }
+    
+    .score-good {
+        background-color: #28a745;
+    }
+    
+    .score-medium {
+        background-color: #ffc107;
+    }
+    
+    .score-poor {
+        background-color: #dc3545;
+    }
+    
+    .score-detail {
+        background-color: rgba(67, 97, 238, 0.1);
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .score-detail-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+    
+    .focus-area-item {
+        background-color: rgba(67, 97, 238, 0.05);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .focus-area-number {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        margin-right: 1rem;
+    }
+    
+    .strengths-list li, .weaknesses-list li, .recommendations-list li {
+        margin-bottom: 0.75rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .strengths-list li:before {
+        content: '✓';
+        color: #28a745;
+        position: absolute;
+        left: 0;
+        font-weight: 700;
+    }
+    
+    .weaknesses-list li:before {
+        content: '✗';
+        color: #dc3545;
+        position: absolute;
+        left: 0;
+        font-weight: 700;
+    }
+    
+    .recommendations-list li:before {
+        content: '→';
+        color: var(--primary-color);
+        position: absolute;
+        left: 0;
+        font-weight: 700;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-4">
+                    <span class="en">AI-Powered CV Analysis</span>
+                    <span class="ro">Analiză CV cu Inteligență Artificială</span>
+                </h1>
+                <p class="lead">
+                    <span class="en">Get instant feedback on your CV and discover how to improve your chances of landing your dream job.</span>
+                    <span class="ro">Primește feedback instant pentru CV-ul tău și descoperă cum să-ți îmbunătățești șansele de a obține jobul visat.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CV Analyzer Section -->
+<section class="cv-analyzer-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="cv-analyzer-form">
+                    <h2 class="text-center mb-4">
+                        <span class="en">Upload Your CV for Analysis</span>
+                        <span class="ro">Încarcă CV-ul Tău pentru Analiză</span>
+                    </h2>
+                    <p class="text-center text-muted mb-4">
+                        <span class="en">Our AI will analyze your CV and provide detailed feedback on how to improve it.</span>
+                        <span class="ro">Inteligența noastră artificială va analiza CV-ul tău și va oferi feedback detaliat despre cum să îl îmbunătățești.</span>
+                    </p>
+                    
+                    <form id="cv-form" action="/analyze" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="language-input" name="language" value="ro">
+                        
+                        <div class="mb-4">
+                            <label for="email" class="form-label">
+                                <span class="en">Email Address</span>
+                                <span class="ro">Adresa de Email</span>
+                            </label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="form-text">
+                                <span class="en">We'll send the detailed analysis to this email.</span>
+                                <span class="ro">Vom trimite analiza detaliată la acest email.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="cv" class="form-label">
+                                <span class="en">Your CV (PDF format)</span>
+                                <span class="ro">CV-ul Tău (format PDF)</span>
+                            </label>
+                            <div class="cv-upload-area" id="upload-area">
+                                <div class="cv-upload-icon">
+                                    <i class="fas fa-file-upload"></i>
+                                </div>
+                                <p class="mb-2">
+                                    <span class="en">Drag & drop your CV here or click to browse</span>
+                                    <span class="ro">Trage și plasează CV-ul tău aici sau click pentru a naviga</span>
+                                </p>
+                                <p class="text-muted small">
+                                    <span class="en">Only PDF files are accepted</span>
+                                    <span class="ro">Sunt acceptate doar fișiere PDF</span>
+                                </p>
+                                <div id="file-name" class="mt-2 text-primary fw-bold"></div>
+                                <input type="file" class="d-none" id="cv" name="cv" accept=".pdf" required>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <span class="en">Analyze My CV</span>
+                                <span class="ro">Analizează CV-ul Meu</span>
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div id="loading" class="text-center my-4 d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">
+                            <span class="en">Analyzing your CV...</span>
+                            <span class="ro">Analizăm CV-ul tău...</span>
+                        </p>
+                    </div>
+                    
+                    <div id="error-message" class="alert alert-danger mt-4 d-none"></div>
+                </div>
+                
+                <!-- CV Analysis Results (initially hidden) -->
+                <div id="cv-result" class="cv-result d-none">
+                    <h2 class="text-center mb-4">
+                        <span class="en">Your CV Analysis Results</span>
+                        <span class="ro">Rezultatele Analizei CV-ului Tău</span>
+                    </h2>
+                    
+                    <p class="text-center text-muted mb-4">
+                        <span class="en">A detailed report has also been sent to your email.</span>
+                        <span class="ro">Un raport detaliat a fost trimis și pe email-ul tău.</span>
+                    </p>
+                    
+                    <div class="text-center mb-4">
+                        <div id="score-circle" class="score-circle">
+                            <span id="overall-score">0%</span>
+                        </div>
+                        <h3 id="score-classification" class="h4"></h3>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="score-detail text-center">
+                                <div class="score-detail-value" id="ats-score">0%</div>
+                                <div class="text-muted">
+                                    <span class="en">ATS Score</span>
+                                    <span class="ro">Scor ATS</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="score-detail text-center">
+                                <div class="score-detail-value" id="industry-score">0%</div>
+                                <div class="text-muted">
+                                    <span class="en">Industry Fitness</span>
+                                    <span class="ro">Potrivire cu Industria</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="score-detail text-center">
+                                <div class="score-detail-value" id="job-fit-score">0%</div>
+                                <div class="text-muted">
+                                    <span class="en">Job Fit Score</span>
+                                    <span class="ro">Potrivire cu Job-ul</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4>
+                            <span class="en">Areas to Focus On</span>
+                            <span class="ro">Zone de Focus</span>
+                        </h4>
+                        <div id="focus-areas"></div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <span class="en">Strengths</span>
+                                        <span class="ro">Puncte Forte</span>
+                                    </h4>
+                                    <ul class="strengths-list" id="strengths-list"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <span class="en">Weaknesses</span>
+                                        <span class="ro">Puncte Slabe</span>
+                                    </h4>
+                                    <ul class="weaknesses-list" id="weaknesses-list"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <span class="en">Recommendations</span>
+                                        <span class="ro">Recomandări</span>
+                                    </h4>
+                                    <ul class="recommendations-list" id="recommendations-list"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="/services" class="btn btn-primary">
+                            <span class="en">Explore Our Services</span>
+                            <span class="ro">Explorează Serviciile Noastre</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">
+            <span class="en">How Our CV Analyzer Works</span>
+            <span class="ro">Cum Funcționează Analizatorul Nostru de CV</span>
+        </h2>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-upload fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="h4">
+                            <span class="en">1. Upload Your CV</span>
+                            <span class="ro">1. Încarcă CV-ul Tău</span>
+                        </h3>
+                        <p>
+                            <span class="en">Simply upload your CV in PDF format and provide your email address.</span>
+                            <span class="ro">Pur și simplu încarcă CV-ul tău în format PDF și furnizează adresa ta de email.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-robot fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="h4">
+                            <span class="en">2. AI Analysis</span>
+                            <span class="ro">2. Analiză cu AI</span>
+                        </h3>
+                        <p>
+                            <span class="en">Our AI analyzes your CV against industry standards and ATS requirements.</span>
+                            <span class="ro">Inteligența noastră artificială analizează CV-ul tău în raport cu standardele industriei și cerințele ATS.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-chart-line fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="h4">
+                            <span class="en">3. Get Results</span>
+                            <span class="ro">3. Primește Rezultate</span>
+                        </h3>
+                        <p>
+                            <span class="en">Receive instant feedback on your CV with detailed recommendations for improvement.</span>
+                            <span class="ro">Primește feedback instant pentru CV-ul tău cu recomandări detaliate pentru îmbunătățire.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block additional_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('cv-form');
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('cv');
+        const fileName = document.getElementById('file-name');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('error-message');
+        const cvResult = document.getElementById('cv-result');
+        
+        // Handle file upload area click
+        uploadArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        // Handle file selection
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+                uploadArea.classList.add('file-selected');
+            } else {
+                fileName.textContent = '';
+                uploadArea.classList.remove('file-selected');
+            }
+        });
+        
+        // Handle drag and drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight() {
+            uploadArea.classList.add('dragover');
+        }
+        
+        function unhighlight() {
+            uploadArea.classList.remove('dragover');
+        }
+        
+        uploadArea.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0 && files[0].type === 'application/pdf') {
+                fileInput.files = files;
+                fileName.textContent = files[0].name;
+                uploadArea.classList.add('file-selected');
+            }
+        }
+        
+        // Form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const language = document.getElementById('language-input').value;
+            
+            if (!email || !fileInput.files[0]) {
+                return;
+            }
+            
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('cv', fileInput.files[0]);
+            formData.append('language', language);
+            
+            // Show loading
+            loading.classList.remove('d-none');
+            errorMessage.classList.add('d-none');
+            cvResult.classList.add('d-none');
+            
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Parse the summary to display in UI
+                    let analysisData;
+                    try {
+                        analysisData = JSON.parse(data.summary);
+                        displayResults(analysisData);
+                    } catch (error) {
+                        console.error('Error parsing analysis data:', error);
+                        showError('Error processing analysis results');
+                    }
+                } else {
+                    showError(data.error || 'Error analyzing CV');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Network error. Please try again later.');
+            } finally {
+                loading.classList.add('d-none');
+            }
+        });
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('d-none');
+        }
+        
+        function displayResults(data) {
+            // Set overall score
+            document.getElementById('overall-score').textContent = data.scor_general + '%';
+            
+            // Set score classification
+            const scoreClassification = document.getElementById('score-classification');
+            scoreClassification.textContent = data.classification;
+            
+            // Set score circle class based on score
+            const scoreCircle = document.getElementById('score-circle');
+            scoreCircle.className = 'score-circle';
+            if (data.scor_general >= 80) {
+                scoreCircle.classList.add('score-good');
+            } else if (data.scor_general >= 60) {
+                scoreCircle.classList.add('score-medium');
+            } else {
+                scoreCircle.classList.add('score-poor');
+            }
+            
+            // Set detail scores
+            document.getElementById('ats-score').textContent = data.scor_ats + '%';
+            document.getElementById('industry-score').textContent = data.industry_fitness + '%';
+            document.getElementById('job-fit-score').textContent = data.job_fit_score + '%';
+            
+            // Set focus areas
+            const focusAreas = document.getElementById('focus-areas');
+            focusAreas.innerHTML = '';
+            if (data.areas_to_focus_on_next && data.areas_to_focus_on_next.length > 0) {
+                data.areas_to_focus_on_next.forEach((area, index) => {
+                    const focusItem = document.createElement('div');
+                    focusItem.className = 'focus-area-item';
+                    focusItem.innerHTML = `
+                        <div class="focus-area-number">${index + 1}</div>
+                        <div>${area}</div>
+                    `;
+                    focusAreas.appendChild(focusItem);
+                });
+            }
+            
+            // Set strengths
+            const strengthsList = document.getElementById('strengths-list');
+            strengthsList.innerHTML = '';
+            data.puncte_forte.forEach(strength => {
+                const li = document.createElement('li');
+                li.textContent = strength;
+                strengthsList.appendChild(li);
+            });
+            
+            // Set weaknesses
+            const weaknessesList = document.getElementById('weaknesses-list');
+            weaknessesList.innerHTML = '';
+            data.puncte_slabe.forEach(weakness => {
+                const li = document.createElement('li');
+                li.textContent = weakness;
+                weaknessesList.appendChild(li);
+            });
+            
+            // Set recommendations
+            const recommendationsList = document.getElementById('recommendations-list');
+            recommendationsList.innerHTML = '';
+            data.recomandari.forEach(recommendation => {
+                const li = document.createElement('li');
+                li.textContent = recommendation;
+                recommendationsList.appendChild(li);
+            });
+            
+            // Show results
+            cvResult.classList.remove('d-none');
+            cvResult.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
+{% endblock %} 
